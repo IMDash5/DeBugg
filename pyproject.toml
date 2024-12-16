@@ -1,0 +1,19 @@
+[tool.poetry]
+name = "resumeai"
+version = "0.1.0"
+description = "AI for resume analysis"
+authors = ["Ivan Mavrin <mmavrin80@gmail.com>"]
+readme = "README.md"
+
+
+[tool.poetry.dependencies]
+python = "^3.13"
+fastapi = "^0.115.6"
+sqlalchemy = "^2.0.36"
+npm = "^0.1.1"
+uvicorn = "^0.34.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
