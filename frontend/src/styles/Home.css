@@ -21,6 +21,10 @@
   border: 1px solid #374151;
 }
 
+.main.shifted {
+  margin-left: 320px;
+}
+
 .subtitle {
   font-size: 1.25rem;
   font-weight: 500;
@@ -45,4 +49,34 @@
 
 .resume-input:focus {
   border: 2px solid #3b82f6;
+}
+
+.submit-button {
+  margin-top: 10px;
+  padding: 10px 20px;
+  font-size: 1rem;
+  color: white;
+  background-color: #2563eb;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.3s ease-in-out;
+}
+
+.submit-button:hover {
+  background-color: #1e40af;
+}
+
+.result-panel {
+  position: fixed;
+  left: -300px;
+  top: 0;
+  width: 300px;
+  height: 100%;
+  background: #e5e7eb;
+  transition: left 0.5s ease-in-out;
+}
+
+.result-panel.open {
+  left: 0;
 }
