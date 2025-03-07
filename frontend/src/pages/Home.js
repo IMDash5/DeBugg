@@ -1,12 +1,14 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "../styles/Home.css";
-import Header from "../components/Header";
 
 export default function Home() {
-  const [setIsSidebarOpen] = useState(false);
   const [resumeText, setResumeText] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [isResultVisible, setIsResultVisible] = useState(false);
+
+  useEffect(() => {
+    document.title = "Резюме";
+  }, []);
 
   const handleSubmit = async () => {
     setIsLoading(true);
@@ -21,7 +23,6 @@ export default function Home() {
   return (
     <div className="container">
       {/* Шапка */}
-      <Header setIsSidebarOpen={setIsSidebarOpen} />
 
       {/* Блок с результатом (выезжающий слева) */}
       <div className={`result-panel ${isResultVisible ? "open" : ""}`}></div>
