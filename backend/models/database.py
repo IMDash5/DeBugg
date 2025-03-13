@@ -1,22 +1,13 @@
-from sqlalchemy import create_engine, Column, Integer, String
-from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.orm import sessionmaker
+from sqlalchemy.ext.asyncio import create_async_engine, async_sessionmaker, AsyncAttrs
+from sqlalchemy.orm import DeclarativeBase
 
-# Настройка подключения к SQLite
-SQLALCHEMY_DATABASE_URL = "sqlite:///./test.db"
-engine = create_engine(SQLALCHEMY_DATABASE_URL)
+from backend.models.config import DB_HOST, DB_NAME, DB_PASS, DB_PORT, DB_USER
 
-# Создание сессии для работы с БД
-SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
+DATABASE_URL = f"postgresql+asyncpg://{DB_USER}:{DB_PASS}@{DB_HOST}:{DB_PORT}/{DB_NAME}"
 
-# Базовый класс для моделей
-Base = declarative_base()
+engine = create_async_engine(DATABASE_URL)
+async_session_maker = async_sessionmaker(engine, expire_on_commit=False)
 
 
-# Модель пользователя
-class User(Base):
-    __tablename__ = "users"
-
-    id = Column(Integer, primary_key=True, index=True)
-    username = Column(String, unique=True, index=True)
-    password = Column(String)
+class Base(AsyncAttrs, DeclarativeBase):
+    __abstract__ = True
