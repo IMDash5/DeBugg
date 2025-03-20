@@ -12,6 +12,13 @@ fastapi = "^0.115.6"
 sqlalchemy = "^2.0.36"
 npm = "^0.1.1"
 uvicorn = "^0.34.0"
+python-multipart = "^0.0.20"
+PyPDF2 = "^3.0.1"
+pdfminer-six = "20231228"
+pdfplumber = "0.11.5"
+pdf2image = "^1.17.0"
+pytesseract = "^0.3.13"
+pillow = "^11.1.0"
 
 
 [build-system]
