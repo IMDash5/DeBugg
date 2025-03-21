@@ -10,4 +10,5 @@ DB_NAME = os.environ.get("DB_NAME")
 DB_USER = os.environ.get("DB_USER")
 DB_PASS = os.environ.get("DB_PASS")
 
-print(DB_HOST)
+SECRET_AUTH = os.environ.get("SECRET_AUTH")
+SECRET_ALGORYTHM = os.environ.get("SECRET_ALGORYTHM")
