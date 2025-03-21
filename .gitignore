@@ -1,0 +1,9 @@
+__pycache__
+*.lock
+.vscode
+.env
+.mypy_cache
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
