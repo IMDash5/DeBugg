@@ -1,11 +1,10 @@
 import PyPDF2  
-from pdfminer.high_level import extract_pages, extract_text  
-from pdfminer.layout import LTTextContainer, LTChar, LTRect, LTFigure  
+from pdfminer.high_level import extract_pages
+from pdfminer.layout import LTTextContainer, LTChar, LTFigure  
 import pdfplumber  
 from PIL import Image  
 from pdf2image import convert_from_path  
 import pytesseract  
-import os  
 
 # Функция для извлечения текста
 def text_extraction(element):
