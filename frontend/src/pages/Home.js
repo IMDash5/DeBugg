@@ -21,7 +21,7 @@ export default function Home() {
   };
 
   return (
-    <div>
+    <div className="container">
       {/* Шапка */}
 
       {/* Блок с результатом (выезжающий слева) */}
