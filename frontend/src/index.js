@@ -12,6 +12,4 @@ root.render(
   </React.StrictMode>
 );
 
-// траблю с хедером
-
 reportWebVitals();
