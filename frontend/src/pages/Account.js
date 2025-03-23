@@ -25,6 +25,7 @@ export default function Account() {
           <div>
             <p className="account-label">Phone</p>
             <p>+7(910)777-44-55</p>
+
           </div>
         </div>
 
