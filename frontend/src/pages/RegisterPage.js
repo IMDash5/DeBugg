@@ -1,40 +1,24 @@
-import React, { useState } from 'react';
-import '../styles/RegisterPage.css'; // Путь к стилям для страницы регистрации
+// src/pages/RegisterPage.js
+
+import React from 'react';
+import { Link } from 'react-router-dom';
+import '../styles/RegisterPage.css';  // Подключаем стили для RegisterPage
 
 const RegisterPage = () => {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const [email, setEmail] = useState('');
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // Логика для регистрации
-  };
-
   return (
-    <div className="register-container">
-      <h2>Регистрация</h2>
-      <form onSubmit={handleSubmit}>
-        <input 
-          type="text" 
-          placeholder="Имя пользователя" 
-          value={username}
-          onChange={(e) => setUsername(e.target.value)} 
-        />
-        <input 
-          type="password" 
-          placeholder="Пароль" 
-          value={password}
-          onChange={(e) => setPassword(e.target.value)} 
-        />
-        <input 
-          type="email" 
-          placeholder="Электронная почта" 
-          value={email}
-          onChange={(e) => setEmail(e.target.value)} 
-        />
-        <button type="submit">Зарегистрироваться</button>
+    <div className="auth-wrapper">
+      <h2 className="auth-header">Регистрация</h2>
+      <form className="auth-form">
+        <input type="text" className="auth-input" placeholder="Имя" />
+        <input type="text" className="auth-input" placeholder="Фамилия" />
+        <input type="tel" className="auth-input" placeholder="Номер телефона" />
+        <input type="email" className="auth-input" placeholder="Электронная почта" />
+        <input type="password" className="auth-input" placeholder="Пароль" />
+        <button type="submit" className="auth-button">Зарегистрироваться</button>
       </form>
+      <p>
+        <Link to="/login" className="auth-link-light">Есть аккаунт? Войти</Link>
+      </p>
     </div>
   );
 };

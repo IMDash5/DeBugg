@@ -1,35 +1,21 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';  // Добавляем импорт Link
-import '../styles/LoginPage.css'; // Путь к стилям для страницы
+// src/pages/LoginPage.js
+
+import React from 'react';
+import { Link } from 'react-router-dom';
+import '../styles/LoginPage.css';  // Подключаем стили для LoginPage
 
 const LoginPage = () => {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // Логика для входа
-  };
-
   return (
-    <div className="login-container">
-      <h2>Вход</h2>
-      <form onSubmit={handleSubmit}>
-        <input 
-          type="text" 
-          placeholder="Имя пользователя" 
-          value={username}
-          onChange={(e) => setUsername(e.target.value)} 
-        />
-        <input 
-          type="password" 
-          placeholder="Пароль" 
-          value={password}
-          onChange={(e) => setPassword(e.target.value)} 
-        />
-        <button type="submit">Войти</button>
+    <div className="auth-wrapper">
+      <h2 className="auth-header">Вход</h2>
+      <form className="auth-form">
+        <input type="email" className="auth-input" placeholder="Электронная почта" />
+        <input type="password" className="auth-input" placeholder="Пароль" />
+        <button type="submit" className="auth-button">Войти</button>
       </form>
-      <p className="register-text">Нет аккаунта? <Link to="/register" className="register-link">Зарегистрироваться</Link></p>
+      <p>
+        <Link to="/register" className="auth-link-light">Нет аккаунта? Зарегистрироваться</Link>
+      </p>
     </div>
   );
 };
