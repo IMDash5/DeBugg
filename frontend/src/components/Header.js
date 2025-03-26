@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import "../styles/Header.css";
 import AuthModal from "./AuthModal";
 
+
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isTouchDevice, setIsTouchDevice] = useState(false);
