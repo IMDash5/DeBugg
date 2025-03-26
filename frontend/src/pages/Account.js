@@ -1,7 +1,25 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import '../styles/Account.css';
 
 export default function Account() {
+  const navigate = useNavigate();
+  const username = localStorage.getItem("username");
+  const email = localStorage.getItem("email");
+  const phone = localStorage.getItem("phone");
+  const token = localStorage.getItem("auth_token");
+
+  useEffect(() => {
+    if (!token) {
+      navigate("/login"); // Переадресация на регистрацию
+    }
+  }, [token, navigate]);
+
+  const handleLogout = () => {
+    localStorage.clear(); // Очищение данных пользователя
+    navigate("/login"); // Переадресация на регистрацию
+  };
+
   return (
     <div className="account-container">
       <div className="account-sidebar">
@@ -10,36 +28,25 @@ export default function Account() {
           alt="avatar"
           className="account-avatar"
         />
-        <h2 className="account-name">Иван Иванов</h2>
-        <p className="account-role">Common account</p>
-        {/* Можно указывать тип подписки */}
+        <h2 className="account-name">{username || "Неизвестный пользователь"}</h2>
+        <p className="account-role">Пользователь</p>
       </div>
 
       <div className="account-info">
-        <h3 className="account-section-title">Information</h3>
+        <h3 className="account-section-title">Информация</h3>
         <div className="account-info-row">
           <div>
             <p className="account-label">Email</p>
-            <p>info@example.com</p>
+            <p>{email || "Не указано"}</p>
           </div>
           <div>
-            <p className="account-label">Phone</p>
-            <p>+7(910)777-44-55</p>
-
+            <p className="account-label">Телефон</p>
+            <p>{phone || "Не указано"}</p>
           </div>
         </div>
-
-
-        <div className="account-info-row">
-          <div>
-            <p className="account-label">Recent</p>
-            <p>Lorem ipsum</p>
-          </div>
-          <div>
-            <p className="account-label">Most Viewed</p>
-            <p>Dolor sit amet</p>
-          </div>
-        </div>
+        <button className="logout-button" onClick={handleLogout}>
+          Выйти из профиля
+        </button>
       </div>
     </div>
   );

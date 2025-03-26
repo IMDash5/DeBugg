@@ -1,0 +1,101 @@
+.auth-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7); 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.auth-modal-content {
+  background: #1f2937; 
+  padding: 32px; 
+  border-radius: 12px;
+  width: 400px; 
+  text-align: center;
+  color: white; 
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5); 
+  position: relative; 
+}
+
+.auth-modal-content input {
+  width: 100%;
+  margin: 12px 0;
+  padding: 14px;
+  background: #374151; 
+  color: white;
+  border: 2px solid #4b5563; 
+  border-radius: 8px;
+  outline: none;
+  transition: border 0.3s;
+}
+
+.auth-modal-content input::placeholder {
+  color: #9ca3af; 
+}
+
+.auth-modal-content input:focus {
+  border: 2px solid #3b82f6; 
+}
+
+.auth-modal-content button {
+  margin: 8px;
+  padding: 12px 20px;
+  background: #2563eb; 
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background 0.3s ease-in-out;
+}
+
+.auth-modal-content button:hover {
+  background: #1e40af; 
+}
+
+.auth-modal-content .toggle-button {
+  background: transparent;
+  color: #3b82f6; 
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  text-decoration: underline;
+}
+
+.auth-modal-content .toggle-button:hover {
+  color: #2563eb; 
+}
+
+.auth-modal-content .close-button {
+  background: #374151; 
+  color: white;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  padding: 8px 16px;
+  border-radius: 8px;
+}
+
+.auth-modal-content .close-button:hover {
+  background: #4b5563; 
+}
+
+.auth-modal-content .close-icon {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: transparent;
+  color: white;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.auth-modal-content .close-icon:hover {
+  color: #f87171; 
+}
