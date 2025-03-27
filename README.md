@@ -56,7 +56,7 @@ poetry install
 1. Запустите фронтенд:
 ```sh
 cd frontend
-npm run dev
+npm run start
 ```
 2. Запустите бэкенд:
 ```sh
@@ -68,9 +68,9 @@ poetry run python -m backend.server
 - Бэкенд: http://localhost:8000
 ## Разработка
 - frontend/:
-    - Содержит исходный код фронтенда на GatsbyJS.
+    - Содержит исходный код фронтенда.
 - backend/:
-    - Содержит исходный код бэкенда на FastAPI.
+    - Содержит исходный код бэкенда.
 - ML/:
     - Содержит модели машинного обучения и скрипты для их обучения.
 ## Команда проекта
@@ -79,13 +79,12 @@ poetry run python -m backend.server
 - [Арсельгов Адам Бесланович М8О-213Б-23](https://github.com/adamarselgov2609) - Frontеnd-разработчик.
 - [Миронов Данил Алексеевич М8О-214Б-23](https://github.com/al1vel) - Frontend-разработчик, помощник писателя.
 - [Чечина Лилия Алексеевна М8О-201Б-23](https://github.com/Lilia-Chechina) - Технический писатель.
-- [Евтенко Никита Александрович М8О-201Б-23](https://github.com/Neochiter22) – Data-Engineer.
+- [Евтенко Никита Александрович М8О-201Б-23](https://github.com/Neochiter22) – Backend-разработчик.
 - [Маврин Иван Дмитриевич М8О-201Б-23](https://github.com/IMDash5) - Заместитель, Ответственный за Backend, Backend-разработчик.
 - [Червоненко Павел Юрьевич М8О-214Б-23](https://github.com/pavelchervonenko) - ML-Engineer.
-- [Гусев Савелий Вячеславович М8О-214Б-23](https://github.com/guse95) - Backend-разработчик.
-- [Заворотный Алексей Александрович М8О-214Б-23](https://github.com/AlekseiZavorotnyi) - Backend-разработчик.
-- [Кауров Данил Николаевич М8О-201Б-23](https://github.com/KaurDanil) – Data-Engineer.
+- [Гусев Савелий Вячеславович М8О-214Б-23](https://github.com/guse95) - ML-Engineer.
+- [Заворотный Алексей Александрович М8О-214Б-23](https://github.com/AlekseiZavorotnyi) - ML-Engineer.
+- [Кауров Данил Николаевич М8О-201Б-23](https://github.com/KaurDanil) – Backend-разработчик.
 
 ## Ссылки
 - [Trello](https://trello.com/b/BPCEQxoc/debugg-gpt) -  сервис для управления задачами.
-- [Miro](https://miro.com/app/board/uXjVMrOehiU=/) - архитектура проекта.
