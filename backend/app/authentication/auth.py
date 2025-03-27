@@ -46,10 +46,6 @@ def get_user(request: Request):
     """Получение куки"""
     return request.cookies.get("auth_token")
 
-def get_user_token(request: Request):
-    """Получение куки"""
-    return request.cookies.get("auth_token")
-
 def cookie_check(request: Request):
     """Проверка наличия куки"""
     cookie = request.cookies.get("auth_token")
