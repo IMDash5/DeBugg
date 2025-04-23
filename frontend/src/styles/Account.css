@@ -42,12 +42,17 @@
   border-bottom: 1px solid #ccc;
   padding-bottom: 10px;
   margin-bottom: 20px;
+  color: white; 
 }
 
 .account-info-row {
   display: flex;
   justify-content: space-between;
   margin-bottom: 20px;
+}
+
+.account-info-row p {
+  color: white; 
 }
 
 .account-label {

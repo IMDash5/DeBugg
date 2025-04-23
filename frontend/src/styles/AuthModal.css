@@ -20,6 +20,10 @@
   color: white; 
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5); 
   position: relative; 
+  display: flex; 
+  flex-direction: column; 
+  justify-content: center; 
+  align-items: center; 
 }
 
 .auth-modal-content input {
@@ -43,7 +47,7 @@
 }
 
 .auth-modal-content button {
-  margin: 8px;
+  margin: 0; 
   padding: 12px 20px;
   background: #2563eb; 
   color: white;
@@ -56,6 +60,12 @@
 
 .auth-modal-content button:hover {
   background: #1e40af; 
+}
+
+.auth-modal-content .button-container {
+  display: flex; 
+  gap: 10px; 
+  margin-top: 16px; 
 }
 
 .auth-modal-content .toggle-button {
