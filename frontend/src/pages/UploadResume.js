@@ -58,6 +58,13 @@ export default function UploadResume() {
         <div className="button-container">
           <label
             className={`file-upload-button ${isFileSelected ? "file-selected" : ""}`}
+            style={{
+              width: "150px",
+              height: "40px",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center", // Center text
+            }}
           >
             Выбрать файл
             <input
@@ -67,7 +74,17 @@ export default function UploadResume() {
               style={{ display: "none" }}
             />
           </label>
-          <button className="submit-button" onClick={handleSubmit} disabled={isLoading}>
+          <button
+            className="submit-button"
+            onClick={handleSubmit}
+            disabled={isLoading}
+            style={{
+             
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center", // Center text
+            }}
+          >
             {isLoading ? "Загрузка..." : "Отправить"}
           </button>
         </div>

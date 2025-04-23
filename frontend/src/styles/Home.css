@@ -53,19 +53,6 @@
   border: 2px solid #3b82f6;
 }
 
-.submit-button {
-  margin-top: 10px;
-  width: 150px; 
-  height: 40px; 
-  padding: 10px 20px;
-  font-size: 1rem;
-  color: white;
-  background-color: #2563eb;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background 0.3s ease-in-out;
-}
 
 .submit-button:hover {
   background-color: #1e40af;
@@ -130,18 +117,19 @@
   border: 2px solid #22c55e; 
 }
 
-.file-upload-button,
+/* .file-upload-button, */
 .submit-button {
-  width: 150px; /* Set a fixed width */
-  height: 40px; /* Set a fixed height */
-  padding: 10px 20px;
+  width: 150px; 
+  height: 60px;
+  text-align: center;
+
   font-size: 1rem;
   color: white;
-  background-color: #2563eb; /* Blue background */
+  background-color: #2563eb;
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  transition: background 0.3s ease-in-out, border 0.3s ease-in-out;
+  transition: background 0.3s ease-in-out, border 0.3s ease-in-out; 
 }
 
 .file-upload-button:hover,
