@@ -1,45 +1,23 @@
-import React from 'react';
-import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
-import Header from '../components/Header'; // Импортируем верхнее меню
-import Footer from '../components/Footer';
-import Home from './pages/Home';
-import Payment from './pages/Payment';
-import LoginPage from './pages/LoginPage';
-import UserPage from './pages/UserPage';
+import React from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Home from "./pages/Home.js";
+import UploadResume from "./pages/UploadResume.js"; 
+import Payment from "./pages/Payment.js";
+import Header from "./components/Header.js";
+import Footer from "./components/Footer.js";
+import Account from "./pages/Account.js";
 
-const App = () => {
-  // Проверка наличия токена для определения, авторизован ли пользователь
-  const isAuthenticated = !!localStorage.getItem('jwtToken');
-
+export default function App() {
   return (
-    <Router>
-      <div style={{ display: 'flex' }}>
-        <Routes>
-          {/* Если не авторизован, редирект на страницу логина */}
-          <Route
-            path="/"
-            element={isAuthenticated ? <Navigate to="/channels" /> : <LoginPage />}
-          />
-        </Routes>
-      </div>
-      {isAuthenticated && (
-        <div style={{ display: 'flex' }}>
-          <Sidebar />
-          <div style={{ flex: 1, padding: '20px' }}>
-            <Routes>
-              <Route path="/channels" element={<AddChannels />} />
-              <Route path="/users" element={<Users />} />
-              <Route path="/users/:username" element={<UserPage />} />
-              <Route path="/withdrawals" element={<Withdrawals />} />
-              <Route path="/analytics" element={<Analytics />} />
-              <Route path="/pars" element={<Pars />} />
-            </Routes>
-          </div>
-        </div>
-      )}
+    <BrowserRouter>
+      <Header />
+      <Routes>
+        <Route path="/profile" element={<Account />} />
+        <Route path="/home" element={<Home />} />
+        <Route path="/upload-resume" element={<UploadResume />} /> {/* New route */}
+        <Route path="/payment" element={<Payment />} />
+      </Routes>
       <Footer />
-    </Router>
+    </BrowserRouter>
   );
-};
-
-export default App;
+}
