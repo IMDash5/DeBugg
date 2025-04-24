@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from "react";
 import "../styles/Home.css";
 
@@ -8,6 +9,7 @@ export default function UploadResume() {
   const [fileError, setFileError] = useState("");
   const [selectedFile, setSelectedFile] = useState(null);
   const [isFileSelected, setIsFileSelected] = useState(false);
+  const [showGif, setShowGif] = useState(false); // Новое состояние для отображения GIF
 
   useEffect(() => {
     document.title = "Загрузить резюме";
@@ -18,11 +20,11 @@ export default function UploadResume() {
     if (file && file.type === "application/pdf") {
       setSelectedFile(file);
       setFileError("");
-      setIsFileSelected(true); 
+      setIsFileSelected(true);
     } else {
       setFileError("Пожалуйста, выберите PDF файл.");
       setSelectedFile(null);
-      setIsFileSelected(false); 
+      setIsFileSelected(false);
     }
   };
 
@@ -33,25 +35,25 @@ export default function UploadResume() {
     }
 
     setIsLoading(true);
+    setShowGif(true);
 
-    // Имитация запроса к бэкенду (2 секунды ожидания)
+    // таймер для скрытия GIF через 5 секунд
     setTimeout(() => {
+      setShowGif(false); 
       setIsLoading(false);
       setIsResultVisible(true);
-    }, 2000);
+    }, 5000);
   };
 
   return (
     <div className="container">
       {/* Блок с результатом (выезжающий слева) */}
       <div className={`result-panel ${isResultVisible ? "open" : ""}`}></div>
-
-      {/* Основной блок */}
       <main className={`main ${isResultVisible ? "shifted" : ""}`}>
         <h2 className="subtitle">Вставьте ваше резюме</h2>
         <textarea
           className="resume-input"
-          placeholder="Введите текст резюме..."
+          placeholder="Введите текст запроса..."
           value={resumeText}
           onChange={(e) => setResumeText(e.target.value)}
         ></textarea>
@@ -63,7 +65,7 @@ export default function UploadResume() {
               height: "40px",
               display: "flex",
               justifyContent: "center",
-              alignItems: "center", // Center text
+              alignItems: "center",
             }}
           >
             Выбрать файл
@@ -74,22 +76,32 @@ export default function UploadResume() {
               style={{ display: "none" }}
             />
           </label>
-          <button
-            className="submit-button"
-            onClick={handleSubmit}
-            disabled={isLoading}
-            style={{
-             
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center", // Center text
-            }}
-          >
-            {isLoading ? "Загрузка..." : "Отправить"}
-          </button>
+          <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+            <button
+              className="submit-button"
+              onClick={handleSubmit}
+              disabled={isLoading}
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              {isLoading ? "Загрузка..." : "Отправить"}
+            </button>
+            {showGif && (
+              <img
+                src="/images/rocket-for-waiting.gif"
+                alt="Загрузка"
+                style={{ width: "60px", height: "60px" }}
+              />
+            )}
+          </div>
         </div>
         {fileError && <p className="error-message">{fileError}</p>}
       </main>
     </div>
   );
 }
+
+
