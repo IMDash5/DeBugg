@@ -7,7 +7,11 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+<<<<<<< HEAD
   background-image: url('../public/images/fon.gif'); 
+=======
+  
+>>>>>>> f10943771b39a04e9b2f7a343bdad054d860e371
   background-size: cover; 
 }
 
