@@ -3,25 +3,29 @@ import "../styles/AuthModal.css";
 
 export default function AuthModal({ onClose }) {
   const [isRegister, setIsRegister] = useState(false);
+  const [isVerification, setIsVerification] = useState(false); 
   const [formData, setFormData] = useState({
-    username: "",
     email: "",
     phone: "",
     password: "",
     confirmPassword: "",
   });
+  const [verificationCode, setVerificationCode] = useState(""); 
   const [passwordError, setPasswordError] = useState("");
-  const [fieldErrors, setFieldErrors] = useState({}); // Track errors for each field
+  const [fieldErrors, setFieldErrors] = useState({});
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
-    setFieldErrors({ ...fieldErrors, [name]: false }); // Reset field error on change
+    setFieldErrors({ ...fieldErrors, [name]: false });
+  };
+
+  const handleVerificationChange = (e) => {
+    setVerificationCode(e.target.value);
   };
 
   const handleSubmit = () => {
     const errors = {};
-    if (!formData.username) errors.username = true; // Ensure username is required for both login and registration
     if (isRegister) {
       if (!formData.email || !formData.email.includes("@")) errors.email = true;
       if (!formData.phone) errors.phone = true;
@@ -36,18 +40,26 @@ export default function AuthModal({ onClose }) {
 
     setFieldErrors(errors);
 
-    if (Object.keys(errors).length > 0) return; // Stop if there are errors
+    if (Object.keys(errors).length > 0) return;
 
     if (isRegister) {
-      localStorage.setItem("username", formData.username);
       localStorage.setItem("email", formData.email);
       localStorage.setItem("phone", formData.phone);
       localStorage.setItem("auth_token", "dummy_token");
+      setIsVerification(true); 
     } else {
-      localStorage.setItem("username", formData.username); // Save username during login
       localStorage.setItem("auth_token", "dummy_token");
+      onClose();
     }
-    onClose();
+  };
+
+  const handleVerificationSubmit = () => {
+    if (verificationCode === "123456") { 
+      alert("Почта успешно подтверждена!");
+      onClose();
+    } else {
+      alert("Неверный код. Попробуйте снова.");
+    }
   };
 
   const getInputStyle = (field) => {
@@ -62,62 +74,75 @@ export default function AuthModal({ onClose }) {
         <button className="close-icon" onClick={onClose}>
           &times;
         </button>
-        <h2>{isRegister ? "Регистрация" : "Вход"}</h2>
-        <input
-          type="text"
-          name="username"
-          placeholder="Логин"
-          value={formData.username}
-          onChange={handleInputChange}
-          style={getInputStyle("username")}
-        />
-        {isRegister && (
+        {!isVerification ? (
           <>
+            <h2>{isRegister ? "Регистрация" : "Вход"}</h2>
+            {isRegister && (
+              <>
+                <input
+                  type="email"
+                  name="email"
+                  placeholder="Почта"
+                  value={formData.email}
+                  onChange={handleInputChange}
+                  style={getInputStyle("email")}
+                />
+                <input
+                  type="text"
+                  name="phone"
+                  placeholder="Номер телефона"
+                  value={formData.phone}
+                  onChange={handleInputChange}
+                  style={getInputStyle("phone")}
+                />
+              </>
+            )}
             <input
-              type="email"
-              name="email"
-              placeholder="Почта"
-              value={formData.email}
+              type="password"
+              name="password"
+              placeholder="Пароль"
+              value={formData.password}
               onChange={handleInputChange}
-              style={getInputStyle("email")}
+              style={getInputStyle("password")}
             />
+            {isRegister && (
+              <input
+                type="password"
+                name="confirmPassword"
+                placeholder="Повторите пароль"
+                value={formData.confirmPassword}
+                onChange={handleInputChange}
+                style={getInputStyle("confirmPassword")}
+              />
+            )}
+            {passwordError && <p className="error-message">{passwordError}</p>}
+            <div className="button-container">
+              <button onClick={handleSubmit}>
+                {isRegister ? "Зарегистрироваться" : "Войти"}
+              </button>
+              <button onClick={() => setIsRegister(!isRegister)}>
+                {isRegister ? "Уже есть аккаунт?" : "Нет аккаунта?"}
+              </button>
+            </div>
+          </>
+        ) : (
+          <>
+            <h2>Подтверждение почты</h2>
+            <p>Введите шестизначный код, отправленный на вашу почту.</p>
             <input
               type="text"
-              name="phone"
-              placeholder="Номер телефона"
-              value={formData.phone}
-              onChange={handleInputChange}
-              style={getInputStyle("phone")}
+              placeholder="Код подтверждения"
+              value={verificationCode}
+              onChange={handleVerificationChange}
             />
+            <div className="button-container">
+              <button onClick={handleVerificationSubmit}>Подтвердить</button>
+              <button onClick={() => alert("Код отправлен повторно!")}>
+                Не пришел код
+              </button>
+            </div>
           </>
         )}
-        <input
-          type="password"
-          name="password"
-          placeholder="Пароль"
-          value={formData.password}
-          onChange={handleInputChange}
-          style={getInputStyle("password")}
-        />
-        {isRegister && (
-          <input
-            type="password"
-            name="confirmPassword"
-            placeholder="Повторите пароль"
-            value={formData.confirmPassword}
-            onChange={handleInputChange}
-            style={getInputStyle("confirmPassword")}
-          />
-        )}
-        {passwordError && <p className="error-message">{passwordError}</p>}
-        <div className="button-container">
-          <button onClick={handleSubmit}>
-            {isRegister ? "Зарегистрироваться" : "Войти"}
-          </button>
-          <button onClick={() => setIsRegister(!isRegister)}>
-            {isRegister ? "Уже есть аккаунт?" : "Нет аккаунта?"}
-          </button>
-        </div>
       </div>
     </div>
   );
