@@ -75,9 +75,9 @@ export default function AuthModal({ onClose }) {
           &times;
         </button>
         {!isVerification ? (
-          <>
-            <h2>{isRegister ? "Регистрация" : "Вход"}</h2>
-            {isRegister && (
+  <>
+    <h2>{isRegister ? "Регистрация" : "Вход"}</h2>
+    {isRegister && (
               <>
                 <input
                   type="email"
@@ -96,6 +96,16 @@ export default function AuthModal({ onClose }) {
                   style={getInputStyle("phone")}
                 />
               </>
+            )}
+            {!isRegister && (
+              <input
+                type="email"
+                name="email"
+                placeholder="Почта"
+                value={formData.email}
+                onChange={handleInputChange}
+                style={getInputStyle("email")}
+              />
             )}
             <input
               type="password"
@@ -123,6 +133,14 @@ export default function AuthModal({ onClose }) {
               <button onClick={() => setIsRegister(!isRegister)}>
                 {isRegister ? "Уже есть аккаунт?" : "Нет аккаунта?"}
               </button>
+              {!isRegister && (
+                <button
+                  className="recover-button"
+                  onClick={() => alert("Функция восстановления аккаунта пока не реализована.")}
+                >
+                  Восстановить
+                </button>
+              )}
             </div>
           </>
         ) : (

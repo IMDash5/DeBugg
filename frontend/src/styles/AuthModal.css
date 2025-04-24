@@ -109,3 +109,19 @@
 .auth-modal-content .close-icon:hover {
   color: #f87171; 
 }
+
+.recover-button {
+  margin-top: 10px;
+  padding: 12px 20px;
+  background: #f59e0b; /* Оранжевый цвет */
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background 0.3s ease-in-out;
+}
+
+.recover-button:hover {
+  background: #d97706; /* Более темный оранжевый при наведении */
+}
