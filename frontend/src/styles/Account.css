@@ -62,7 +62,7 @@
 }
 
 .logout-button {
-  margin-top: 20px;
+  height: 100%;
   padding: 12px 20px;
   background: #f87171; 
   color: white;
@@ -75,4 +75,31 @@
 
 .logout-button:hover {
   background: #dc2626; 
+}
+
+.account-input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 16px;
+}
+
+.edit-button,
+.save-button {
+  padding: 10px 20px;
+  background-color: #2563eb;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.button-container {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
 }
