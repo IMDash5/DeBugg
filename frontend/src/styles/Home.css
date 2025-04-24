@@ -135,7 +135,7 @@
 
 .file-upload-button:hover,
 .submit-button:hover {
-  background-color: #1e40af; /* Darker blue on hover */
+  background-color: #1e40af; 
 }
 
 .error-message {
