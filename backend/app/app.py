@@ -3,10 +3,11 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from backend.app.parser_pdf import pdf_parser
 
-from backend.app.authentication.auth import register, get_user, cookie_check, cookies, auth, logout
+from backend.app.authentication.auth import register, get_user, cookie_check, cookies, auth, logout, verification, verification_request
 from backend.app.authentication.token import decodeJWT
 from backend.models import schemas
 from backend.models.database import get_session
+
 
 app = FastAPI()
 
@@ -49,7 +50,7 @@ async def register_user(
 
 # Эндпоинт для получения информации о пользователе через JWT-токен
 @app.get("/get_user_info_by_token")
-async def get_user(token=Depends(get_user)):
+async def get_user_info(token=Depends(get_user)):
     try:
         return decodeJWT(token)
     except Exception:
@@ -73,3 +74,18 @@ async def login_user(
 @app.get("/account/logout")
 async def logout_user(result=Depends(logout)):
     return result
+
+@app.post("/account/register/verify-request")
+async def verify_request(user_data: dict = Depends(get_user_info)):
+    user_email = user_data["email"]
+    await verification_request(user_email)
+    return {"status": "verification_code_sent"}
+
+@app.post("/account/register/verify")
+async def verify_user(
+    code: str,
+    user_data: dict = Depends(get_user_info),
+    db: AsyncSession = Depends(get_session)
+):
+    user_email = user_data["email"]
+    return await verification(user_email, db, code)
