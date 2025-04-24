@@ -9,9 +9,9 @@ readme = "README.md"
 [tool.poetry.dependencies]
 python = "^3.12"
 fastapi = "^0.115.6"
-sqlalchemy = {extras = ["asyncio"], version = "^2.0.39"}
+sqlalchemy = { extras = ["asyncio"], version = "^2.0.39" }
 npm = "^0.1.1"
-uvicorn = {extras = ["standard"], version = "^0.34.0"}
+uvicorn = { extras = ["standard"], version = "^0.34.0" }
 alembic = "^1.15.1"
 pydantic-settings = "^2.8.1"
 dotenv = "^0.9.9"
@@ -25,11 +25,13 @@ pdf2image = "^1.17.0"
 pytesseract = "^0.3.13"
 pillow = "^11.1.0"
 pyjwt = "^2.10.1"
-passlib = {extras = ["bcrypt"], version = "^1.7.4"}
+passlib = { extras = ["bcrypt"], version = "^1.7.4" }
 python-jose = "^3.4.0"
 starlette = "^0.46.1"
 email-validator = "^2.2.0"
-
+jinja2 = "^3.1.6"
+aioredis = "^2.0.1"
+redis = "^5.2.1"
 
 
 [build-system]
