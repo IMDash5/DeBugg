@@ -11,20 +11,30 @@ from PIL import Image
 import pytesseract
 from pdf2image import convert_from_path
 from pdfminer.high_level import extract_pages
-from pdfminer.layout import LTTextContainer, LTChar, LTFigure  # Добавляем необходимые импорты
+from pdfminer.layout import LTTextContainer, LTChar, LTFigure 
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-# Ваш парсер PDF
-# Функции из вашего парсера
+# Обработчик ошибок, если понадобится
+def get_feedback_from_user():
+    while True:
+        print("Вам нравится ответ? (да/нет)")
+        feedback = input().strip().lower()
+        if feedback == 'да':
+            return True
+        elif feedback == 'нет':
+            return False
+        else:
+            print("Пожалуйста, введите 'да' или 'нет'.")
+
 
 def text_extraction(element):
     line_text = element.get_text()
     
     line_formats = []
     for text_line in element:
-        if isinstance(text_line, LTTextContainer):  # Теперь LTTextContainer будет доступен
+        if isinstance(text_line, LTTextContainer):
             for character in text_line:
                 if isinstance(character, LTChar):
                     line_formats.append(character.fontname)
@@ -280,7 +290,7 @@ class ResumeAnalyzer:
 
 if __name__ == "__main__":
     try:
-        api_key = "NDBkYzg5OTQtNTI1ZC00N2FkLWIyMjEtZDk2ZjQzZDU2MDM3Ojk5ZDUxZGMwLWZhYTMtNGFlYi05ODRjLTI1NGYzNTBiMGNhZg=="  # Убедитесь, что это ваш реальный ключ
+        api_key = "NDBkYzg5OTQtNTI1ZC00N2FkLWIyMjEtZDk2ZjQzZDU2MDM3Ojk5ZDUxZGMwLWZhYTMtNGFlYi05ODRjLTI1NGYzNTBiMGNhZg==" 
         
         analyzer = ResumeAnalyzer(gigachat_api_key=api_key)
         
@@ -298,10 +308,17 @@ if __name__ == "__main__":
                 print("Запрос не может быть пустым!")
                 continue
                 
-            # 3. Анализируем и выводим результат
             print("\nРезультат анализа:")
             result = analyzer.analyze_resume(resume_text, user_query)
             print(result)
+
+            # Запросить обратную связь
+            if not get_feedback_from_user():
+                print("\nПереработаем ответ...")
+                # Здесь можно добавить логику для переработки ответа на основе обратной связи от пользователя
+                result = analyzer.analyze_resume(resume_text, user_query)
+                print(result)
+                continue
             
     except Exception as e:
         logger.error(f"Ошибка: {str(e)}")
