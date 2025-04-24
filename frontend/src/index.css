@@ -12,7 +12,8 @@ body {
   background-size: cover;
   background-attachment: fixed; 
   background-position: center; 
-  height: 20vh;
+  height: 100vh;
+  overflow: hidden;
  
 }
 

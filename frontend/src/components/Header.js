@@ -36,7 +36,7 @@ export default function Header() {
   };
 
   const handleTitleClick = () => {
-    navigate("/home"); 
+    navigate("/"); 
   };
 
   return (
