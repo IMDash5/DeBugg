@@ -9,7 +9,7 @@ export default function UploadResume() {
   const [selectedFile, setSelectedFile] = useState(null);
   const [isFileSelected, setIsFileSelected] = useState(false);
   const [showGif, setShowGif] = useState(false); // Новое состояние для отображения GIF
-  const [resultText, setResultText] = useState(""); // Новый стейт для результата
+  const [resultText, setResultText] = useState(""); 
 
   useEffect(() => {
     document.title = "Загрузить резюме";
@@ -42,11 +42,24 @@ export default function UploadResume() {
       setShowGif(false); 
       setIsLoading(false);
       setIsResultVisible(true);
-      // Здесь имитация результата, замените на реальный fetch к API
+      // Здесь имитация результата
       setResultText(
         "Пример результата анализа резюме: \n\n- Ключевые навыки: Python, ML\n- Опыт работы: 3 года\n- Рекомендации: добавить проекты"
       );
     }, 5000);
+  };
+
+  // Функция для скачивания результата в txt-файл
+  const handleDownloadTXT = () => {
+    const txtBlob = new Blob([resultText], { type: "text/plain;charset=utf-8" });
+    const txtUrl = URL.createObjectURL(txtBlob);
+    const link = document.createElement("a");
+    link.href = txtUrl;
+    link.download = "resume_analysis.txt";
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(txtUrl);
   };
 
   return (
@@ -122,6 +135,13 @@ export default function UploadResume() {
             }}>
               {resultText}
             </pre>
+            <button
+              className="submit-button"
+              style={{ width: "180px", height: "45px", marginTop: "16px" }}
+              onClick={handleDownloadTXT}
+            >
+              Скачать TXT
+            </button>
           </div>
         )}
       </main>
