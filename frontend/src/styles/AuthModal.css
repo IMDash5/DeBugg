@@ -15,7 +15,9 @@
   background: #1f2937; 
   padding: 32px; 
   border-radius: 12px;
-  width: 400px; 
+  min-width: 600px !important;  
+  width: 100vw !important;
+  box-sizing: border-box !important;
   text-align: center;
   color: white; 
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5); 
@@ -63,9 +65,51 @@
 }
 
 .auth-modal-content .button-container {
-  display: flex; 
-  gap: 10px; 
-  margin-top: 16px; 
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: center;
+  gap: 16px;
+  width: 100%;
+  margin-top: 16px;
+}
+
+.auth-modal-content .button-container button,
+.auth-modal-content .button-container .recover-button,
+.auth-modal-content .button-container .resend-btn {
+  min-width: 180px;
+  max-width: 240px;
+  height: 52px;
+  font-size: 1.08rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  white-space: normal;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding: 0 12px;
+  text-align: center;
+  line-height: 1.2;
+  box-sizing: border-box;
+}
+
+/* Для кнопки "Отправить код" и "Назад" на первом шаге восстановления */
+.auth-modal-content .button-container button:not(:last-child) {
+  min-width: 180px;
+  max-width: 240px;
+  height: 52px;
+  font-size: 1.08rem;
+  padding: 0 12px;
+}
+
+/* Для кнопки "Отправить код повторно" с переносом текста */
+.auth-modal-content .button-container .resend-btn span {
+  display: block;
+  width: 100%;
+  text-align: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: normal;
 }
 
 .auth-modal-content .toggle-button {
@@ -113,7 +157,7 @@
 .recover-button {
   margin-top: 10px;
   padding: 12px 20px;
-  background: #f59e0b; /* Оранжевый цвет */
+  background: #f59e0b; 
   color: white;
   border: none;
   border-radius: 8px;

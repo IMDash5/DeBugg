@@ -172,9 +172,9 @@ export default function AuthModal({ onClose }) {
       <div
         className="auth-modal-content"
         style={{
-          maxWidth: 700, // увеличиваем ширину окна
-          minWidth: 400,
-          width: "90vw",
+          maxWidth: 200, 
+          minWidth: 480,
+          width: "96vw",
           boxSizing: "border-box"
         }}
       >
@@ -197,43 +197,13 @@ export default function AuthModal({ onClose }) {
                 {recoveryError && <p className="error-message">{recoveryError}</p>}
                 <div
                   className="button-container"
-                  style={{
-                    display: "flex",
-                    flexDirection: "row",
-                    flexWrap: "nowrap",
-                    justifyContent: "center",
-                    gap: "12px",
-                    width: "100%",
-                  }}
                 >
                   <button
-                    style={{
-                      minWidth: 140,
-                      maxWidth: "100%",
-                      height: 45,
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      whiteSpace: "nowrap",
-                      overflow: "hidden",
-                      textOverflow: "ellipsis",
-                    }}
                     onClick={handleSendRecoveryCode}
                   >
                     Отправить код
                   </button>
                   <button
-                    style={{
-                      minWidth: 140,
-                      maxWidth: "100%",
-                      height: 45,
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      whiteSpace: "nowrap",
-                      overflow: "hidden",
-                      textOverflow: "ellipsis",
-                    }}
                     onClick={() => setIsRecovery(false)}
                   >
                     Назад
@@ -253,79 +223,27 @@ export default function AuthModal({ onClose }) {
                 {recoveryError && <p className="error-message">{recoveryError}</p>}
                 <div
                   className="button-container"
-                  style={{
-                    display: "flex",
-                    flexDirection: "row",
-                    flexWrap: "nowrap",
-                    justifyContent: "center",
-                    gap: "16px",
-                    width: "100%",
-                  }}
                 >
                   <button
-                    style={{
-                      minWidth: 220,
-                      maxWidth: 340,
-                      height: 64,
-                      fontSize: "1.08rem",
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      whiteSpace: "normal",
-                      overflow: "hidden",
-                      textOverflow: "clip",
-                      padding: "0 18px",
-                      textAlign: "center",
-                      lineHeight: "1.2",
-                    }}
                     onClick={handleRecoveryCodeCheck}
                   >
                     Проверить код
                   </button>
                   <button
-                    style={{
-                      minWidth: 220,
-                      maxWidth: 340,
-                      height: 64,
-                      fontSize: "1.08rem",
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      whiteSpace: "normal",
-                      overflow: "hidden",
-                      textOverflow: "clip",
-                      padding: "0 18px",
-                      textAlign: "center",
-                      lineHeight: "1.2",
-                    }}
                     onClick={() => setIsRecovery(false)}
                   >
                     Назад
                   </button>
                   <button
+                    className="resend-btn"
                     onClick={handleResendCode}
                     disabled={resendTimer > 0}
-                    style={{
-                      minWidth: 220,
-                      maxWidth: 340,
-                      height: 64,
-                      fontSize: "1.08rem",
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      whiteSpace: "normal",
-                      overflow: "hidden",
-                      textOverflow: "clip",
-                      padding: "0 18px",
-                      textAlign: "center",
-                      lineHeight: "1.2",
-                    }}
                   >
                     {resendTimer > 0
                       ? (
                         <>
-                          <span style={{ display: "block" }}>Отправить код повторно</span>
-                          <span style={{ display: "block" }}>({resendTimer} сек)</span>
+                          <span>Отправить код повторно</span>
+                          <span>({resendTimer} сек)</span>
                         </>
                       )
                       : "Отправить код повторно"}
@@ -358,7 +276,7 @@ export default function AuthModal({ onClose }) {
                     flexDirection: "row",
                     flexWrap: "nowrap",
                     justifyContent: "center",
-                    gap: "12px",
+                    gap: "24px",
                     width: "100%",
                   }}
                 >
