@@ -169,7 +169,10 @@ export default function Account() {
               display: "flex",
               flexDirection: "column",
               alignItems: "center",
-              position: "relative"
+              position: "relative",
+              width: "90vw",
+              maxWidth: 340,
+              minWidth: 0,
             }}
             onClick={e => e.stopPropagation()}
           >
@@ -193,8 +196,8 @@ export default function Account() {
               src={avatar}
               alt="avatar-large"
               style={{
-                width: 180,
-                height: 180,
+                width: 120,
+                height: 120,
                 borderRadius: "50%",
                 marginBottom: 24,
                 objectFit: "cover",
@@ -205,7 +208,7 @@ export default function Account() {
               style={{
                 background: "#2563eb",
                 color: "#fff",
-                padding: "12px 24px",
+                padding: "10px 18px",
                 borderRadius: "8px",
                 cursor: "pointer",
                 fontSize: "1rem"

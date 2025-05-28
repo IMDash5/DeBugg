@@ -63,8 +63,31 @@ export default function UploadResume() {
   };
 
   return (
-    <div className="container">
-      <main className="main">
+    <div
+      className="container"
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "center",
+        minHeight: "100vh",
+        width: "100vw",
+        boxSizing: "border-box",
+      }}
+    >
+      <main
+        className="main"
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "center",
+          width: "100%",
+          maxWidth: 800,
+          margin: "0 auto",
+          minHeight: "300px",
+        }}
+      >
         <h2 className="subtitle">Вставьте ваше резюме</h2>
         <textarea
           className="resume-input"
@@ -78,9 +101,16 @@ export default function UploadResume() {
             style={{
               width: "150px",
               height: "40px",
+              minWidth: "150px",
+              minHeight: "40px",
+              maxWidth: "150px",
+              maxHeight: "40px",
               display: "flex",
               justifyContent: "center",
               alignItems: "center",
+              whiteSpace: "nowrap", 
+              overflow: "hidden",
+              textOverflow: "ellipsis",
             }}
           >
             Выбрать файл
@@ -91,7 +121,7 @@ export default function UploadResume() {
               style={{ display: "none" }}
             />
           </label>
-          <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+          <div style={{ display: "flex", alignItems: "center", gap: "10px", position: "relative", minWidth: "150px" }}>
             <button
               className="submit-button"
               onClick={handleSubmit}
@@ -100,6 +130,14 @@ export default function UploadResume() {
                 display: "flex",
                 justifyContent: "center",
                 alignItems: "center",
+                height: "40px",
+                minHeight: "40px",
+                maxHeight: "40px",
+                width: "150px",
+                minWidth: "150px",
+                maxWidth: "150px",
+                position: "relative",
+                zIndex: 1,
               }}
             >
               {isLoading ? "Загрузка..." : "Отправить"}
@@ -108,7 +146,14 @@ export default function UploadResume() {
               <img
                 src="/images/rocket-for-waiting.gif"
                 alt="Загрузка"
-                style={{ width: "60px", height: "60px" }}
+                style={{
+                  width: "60px",
+                  height: "60px",
+                  position: "absolute",
+                  left: "calc(100% + 10px)",
+                  top: "50%",
+                  transform: "translateY(-50%)"
+                }}
               />
             )}
           </div>
@@ -123,9 +168,11 @@ export default function UploadResume() {
             borderRadius: "10px",
             padding: "20px",
             color: "#fff",
-            boxShadow: "0 2px 8px rgba(0,0,0,0.12)"
+            boxShadow: "0 2px 8px rgba(0,0,0,0.12)",
+            maxWidth: "100vw",
+            overflowX: "auto"
           }}>
-            <h3 style={{marginTop: 0}}>Результат анализа</h3>
+            <h3 style={{marginTop: 0, fontSize: "1.1rem"}}>Результат анализа</h3>
             <pre style={{
               whiteSpace: "pre-wrap",
               wordBreak: "break-word",
@@ -137,7 +184,7 @@ export default function UploadResume() {
             </pre>
             <button
               className="submit-button"
-              style={{ width: "180px", height: "45px", marginTop: "16px" }}
+              style={{ width: "100%", maxWidth: "180px", height: "45px", marginTop: "16px" }}
               onClick={handleDownloadTXT}
             >
               Скачать TXT

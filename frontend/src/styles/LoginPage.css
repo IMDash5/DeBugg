@@ -104,3 +104,23 @@ body {
 .auth-link-light:hover {
   text-decoration: underline;
 }
+
+@media (max-width: 600px) {
+  .auth-wrapper {
+    width: 98vw !important;
+    max-width: 98vw !important;
+    padding: 12px !important;
+    border-radius: 8px;
+  }
+  .auth-form {
+    gap: 8px !important;
+  }
+  .auth-input, .auth-button {
+    font-size: 1rem !important;
+    padding: 10px !important;
+  }
+  .auth-header {
+    font-size: 20px !important;
+    margin-bottom: 18px !important;
+  }
+}

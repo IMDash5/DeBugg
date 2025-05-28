@@ -15,8 +15,9 @@
   background: #1f2937; 
   padding: 32px; 
   border-radius: 12px;
-  min-width: 600px !important;  
-  width: 100vw !important;
+  min-width: 320px !important;  /* уменьшено для мобильных */
+  width: 96vw !important;
+  max-width: 600px !important;
   box-sizing: border-box !important;
   text-align: center;
   color: white; 
@@ -168,4 +169,28 @@
 
 .recover-button:hover {
   background: #d97706; /* Более темный оранжевый при наведении */
+}
+
+@media (max-width: 600px) {
+  .auth-modal-content {
+    min-width: 0 !important;
+    width: 98vw !important;
+    max-width: 98vw !important;
+    padding: 16px !important;
+    border-radius: 8px;
+  }
+  .auth-modal-content input,
+  .auth-modal-content button {
+    font-size: 1rem !important;
+    padding: 10px !important;
+  }
+  .auth-modal-content .button-container {
+    flex-direction: column !important;
+    gap: 10px !important;
+  }
+  .auth-modal-content .close-icon {
+    font-size: 32px !important;
+    top: 6px !important;
+    right: 8px !important;
+  }
 }
