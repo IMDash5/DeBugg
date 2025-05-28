@@ -1,0 +1,6 @@
+Dear, {{ username }}!
+If you see this message, update your device and stay informed!
+(HTML format is not supported)
+
+Best regards,
+DeBugg Security Team

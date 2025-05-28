@@ -1,0 +1,107 @@
+/* src/styles/RegisterPage.css (и LoginPage.css) */
+
+/* Контейнер для всей страницы */
+body {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* Полная высота экрана */
+  background-color: #1f2937; /* Темный фон для страницы */
+  width: 100vw;
+}
+
+/* Контейнер для формы */
+.auth-wrapper {
+  width: 600px;
+  max-width: none;  /* Устанавливаем максимальную ширину формы */
+  background: #2d3748;  /* Темный фон для формы */
+  padding: 24px;  /* Внутренние отступы */
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Тень для формы */
+  border: 2px solid #374151; /* Увеличена толщина границы формы */
+}  
+
+/* Стиль для формы */
+.auth-form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 12px; /* Отступы между полями ввода */
+}
+
+/* Стиль для полей ввода */
+.auth-input {
+  margin-top: 10px;
+  padding: 14px; /* Увеличены внутренние отступы */
+  background: #374151; /* Темный фон для полей ввода */
+  color: white;
+  border: 2px solid #4b5563; /* Увеличена толщина границы */
+  border-radius: 8px;  /* Увеличено скругление границы */
+  transition: border 0.3s; /* Плавное изменение границы при фокусе */
+}
+
+/* Стиль для текста в поле ввода */
+.auth-input::placeholder {
+  color: #9ca3af; /* Цвет плейсхолдера */
+}
+  
+/* Фокус на поле ввода */
+.auth-input:focus {
+  border: 3px solid #3b82f6;  /* Увеличена толщина границы при фокусе */
+}
+
+/* Стиль для кнопки */
+.auth-button {
+  padding: 14px; /* Увеличены внутренние отступы */
+  background-color: #4CAF50;  /* Зеленый цвет фона */
+  color: white;
+  border: 2px solid #374151; /* Увеличена толщина границы кнопки */
+  border-radius: 8px;  /* Увеличено скругление кнопки */
+  cursor: pointer;
+  font-size: 18px; /* Размер шрифта кнопки */
+  transition: background-color 0.3s ease; /* Плавное изменение фона */
+}
+
+/* Изменение цвета кнопки при наведении */
+.auth-button:hover {
+  background-color: #45a049;
+}
+
+/* Стиль для заголовка */
+.auth-header {
+  text-align: center;
+  color: #fff;
+  font-size: 24px;  /* Размер шрифта заголовка */
+  margin-bottom: 30px; /* Отступ снизу */
+}
+
+/* Стиль для сообщений об ошибках */
+.error-message {
+  color: red;
+  font-size: 16px; /* Размер шрифта для сообщений об ошибках */
+  text-align: center;
+  margin-bottom: 15px;
+}
+
+/* Стили для ссылки */
+.auth-link {
+  color: #3b82f6; /* Цвет ссылки */
+  text-decoration: none;
+}
+
+.auth-link:hover {
+  text-decoration: underline; /* Подчеркивание ссылки при наведении */
+}
+
+/* Стиль для ссылки "Есть аккаунт?" */
+.auth-link-light {
+  color: #a0aec0; /* Более светлый цвет для текста */
+  text-decoration: none;
+  font-size: 16px; /* Уменьшаем размер шрифта */
+}
+
+.auth-link-light:hover {
+  text-decoration: underline;
+}

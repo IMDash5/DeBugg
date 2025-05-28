@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Account Verification | CorporateName</title>
+    <style>
+        .company-name {
+            color: white;
+            font-size: 24px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            margin: 0;
+            text-transform: uppercase;
+        }
+
+        body {
+            font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+            background: #f8f9fa;
+            margin: 0;
+            padding: 40px 20px;
+            color: #2d3436;
+        }
+
+        .container {
+            max-width: 640px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+
+        .header {
+            padding: 32px;
+            background: #1a237e;
+            border-radius: 8px 8px 0 0;
+            text-align: center;
+        }
+
+        .content {
+            padding: 40px 32px;
+        }
+
+        .code-wrapper {
+            margin: 32px 0;
+            padding: 24px;
+            background: #f8f9ff;
+            border: 1px solid #e0e0e0;
+            border-radius: 6px;
+            text-align: center;
+        }
+
+        .verification-code {
+            font-family: 'Courier New', monospace;
+            font-size: 24px;
+            letter-spacing: 2px;
+            color: #1a237e;
+            font-weight: 600;
+        }
+
+        .divider {
+            border-top: 1px solid #e0e0e0;
+            margin: 32px 0;
+        }
+
+        .footer {
+            padding: 24px;
+            background: #f8f9ff;
+            border-radius: 0 0 8px 8px;
+            font-size: 12px;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <h1 class="company-name">DeBugg </h1>
+    </div>
+
+    <div class="content">
+        <h2 style="margin: 0 0 24px 0; color: #1a237e;">Account Verification</h2>
+
+        <p>Dear {{username}},</p>
+
+        <p>Thank you for registering with DeBugg.
+            Please use the following verification code to complete your account setup:</p>
+
+        <div class="code-wrapper">
+            <div class="verification-code">{{confirmation_code}}</div>
+        </div>
+
+        <p>This code will expire in 15 minutes. For security reasons,
+            do not share this code with anyone.</p>
+
+        <div class="divider"></div>
+
+        <p style="margin: 0;">Best regards,<br>
+            <strong>DeBugg Security Team</strong></p>
+    </div>
+
+    <div class="footer">
+        <p style="margin: 0;">2025 DeBugg. All rights reserved.<br>
+            Selo Kykyevo 22, Na Gore . . . 25<br>
+            <a href="#" style="color: #1a237e; text-decoration: none;">Privacy Policy</a> |
+            <a href="#" style="color: #1a237e; text-decoration: none;">Terms of Service</a></p>
+    </div>
+</div>
+</body>
+</html>

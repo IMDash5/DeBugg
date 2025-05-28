@@ -1,0 +1,105 @@
+.account-container {
+  max-width: 600px;
+  margin: 40px auto;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  border-radius: 16px;
+  display: flex;
+  overflow: hidden;
+  font-family: Arial, sans-serif;
+}
+
+.account-sidebar {
+  width: 35%;
+  background: linear-gradient(to bottom, #facc15, #f472b6);
+  color: #fff;
+  text-align: center;
+  padding: 30px;
+}
+
+.account-avatar {
+  width: 96px;
+  height: 96px;
+  border-radius: 50%;
+  margin-bottom: 20px;
+}
+
+.account-name {
+  font-size: 22px;
+  margin: 10px 0;
+}
+
+.account-role {
+  font-size: 16px;
+  margin-bottom: 20px;
+}
+
+.account-info {
+  width: 65%;
+  padding: 30px;
+}
+
+.account-section-title {
+  border-bottom: 1px solid #ccc;
+  padding-bottom: 10px;
+  margin-bottom: 20px;
+  color: white; 
+}
+
+.account-info-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.account-info-row p {
+  color: white; 
+}
+
+.account-label {
+  color: #777;
+  font-weight: bold;
+  margin: 0 0 5px;
+}
+
+.logout-button {
+  height: 100%;
+  padding: 12px 20px;
+  background: #f87171; 
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background 0.3s ease-in-out;
+}
+
+.logout-button:hover {
+  background: #dc2626; 
+}
+
+.account-input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 16px;
+}
+
+.edit-button,
+.save-button {
+  padding: 10px 20px;
+  background-color: #2563eb;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.button-container {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+}
