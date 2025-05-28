@@ -27,7 +27,7 @@ export default function Home() {
           justifyContent: "center",
           width: "100%",
           maxWidth: 800,
-          margin: "100px auto 0 auto", // 100px сверху, авто по бокам
+          margin: "100px auto 0 auto", 
           minHeight: "300px",
         }}
       >

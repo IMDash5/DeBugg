@@ -1,12 +1,17 @@
 .header {
-  width: 98%;
-  border-radius: 12px;
+  width: 100vw; /* растягиваем header на всю ширину */
+  border-radius: 0;
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 15px 20px;
   background: #1f2937;
   color: white;
+  position: relative; /* для корректного позиционирования меню */
+  left: 0;
+  top: 0;
+  margin: 0;
+  box-sizing: border-box;
 }
 
 .icon {
@@ -54,7 +59,7 @@
   transform: scale(0.9);
   transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
   pointer-events: none;
-  z-index: 10;
+  z-index: 1000;
 }
 
 .dropdown-menu.open {
@@ -79,54 +84,58 @@
   background: #374151;
 }
 
-.dropdown-menu {
-  position: absolute;
-  top: 60px;
-  right: 0;
-  background: #1f2937;
-  border: 1px solid #374151;
-  border-radius: 8px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  overflow: hidden;
-  min-width: 180px;
-  display: flex;
-  flex-direction: column;
-  opacity: 0;
-  transform: scale(0.9);
-  transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
-  pointer-events: none;
-  z-index: 1000; /* добавлено */
-}
-
 @media (max-width: 600px) {
   .header {
-    flex-direction: column;
-    align-items: flex-start;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between; 
     padding: 8px 6px;
     font-size: 1rem;
     width: 100vw;
     border-radius: 0;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 2000;
   }
   .title {
     font-size: 1.1rem !important;
+    margin-right: 0 !important;
+    margin-left: 0 !important;
   }
   .profile-container {
     gap: 4px;
+    justify-content: flex-end; 
+    align-items: center;
+    width: auto;
   }
   .icon {
     height: 36px;
     width: 36px;
   }
-  .dropdown-menu, .dropdown-menu.open {
-    min-width: 120px !important;
-    top: 44px !important;
+  .dropdown-menu,
+  .dropdown-menu.open {
+    min-width: 180px !important;
+    left: auto !important;
     right: 0 !important;
-    border-radius: 6px !important;
+    top: 100% !important;
+    border-radius: 0 0 8px 8px !important;
     font-size: 1rem !important;
-    z-index: 1000;
+    z-index: 3000;
+    position: absolute;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+    max-width: 90vw !important;
+    overflow-x: auto;
+  }
+  .profile-icon {
+    width: auto;
+    display: flex;
+    justify-content: flex-end;
   }
   .menu-item {
     font-size: 1rem !important;
-    padding: 8px 12px !important;
+    padding: 12px 20px !important;
+    width: 100%;
+    box-sizing: border-box;
   }
 }

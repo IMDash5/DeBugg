@@ -16,7 +16,7 @@
   background: #1f2937;
   padding: 24px;
   border-radius: 12px;
-  margin-top: 0; /* убираем отступ сверху, чтобы блок был вплотную к header */
+  margin-top: 0; 
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -157,7 +157,7 @@
     max-width: 98vw !important;
     padding: 10px !important;
     border-radius: 8px !important;
-    margin-top: 0 !important; /* убираем отступ сверху и на мобильных */
+    margin-top: 100px !important; /* убираем отступ сверху и на мобильных */
     justify-content: center !important;
     margin-left: auto !important;
     margin-right: auto !important;
