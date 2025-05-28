@@ -14,7 +14,6 @@ export default function Home() {
         flexDirection: "column",
         alignItems: "center",
         justifyContent: "center",
-        minHeight: "100vh",
         width: "100vw",
         boxSizing: "border-box",
       }}
@@ -28,7 +27,7 @@ export default function Home() {
           justifyContent: "center",
           width: "100%",
           maxWidth: 800,
-          margin: "0 auto",
+          margin: "100px auto 0 auto", // 100px сверху, авто по бокам
           minHeight: "300px",
         }}
       >
