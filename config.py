@@ -14,3 +14,5 @@ SECRET_AUTH = os.environ.get("SECRET_AUTH")
 SECRET_ALGORYTHM = os.environ.get("SECRET_ALGORYTHM")
 
 MAIL_KEY = os.environ.get("MAIL_KEY")
+
+GIGACHAT_API = os.environ.get("GIGACHAT_API")

@@ -18,7 +18,7 @@ class User(Base):
     hashed_password = Column(String)
     is_verified = Column(Boolean, default=False)
 
-    resume = relationship("Resume", back_populates="user", uselist=False)
+    resumes = relationship("Resume", back_populates="user")
 
 class Resume(Base):
     """Модель резюме пользователя"""

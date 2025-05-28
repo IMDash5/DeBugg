@@ -9,17 +9,17 @@ export default function AuthModal({ onClose }) {
   const [isResetPassword, setIsResetPassword] = useState(false);
   const [formData, setFormData] = useState({
     email: "",
-    phone: "",
     password: "",
-    confirmPassword: "",
+    login: "",
   });
+
   const [verificationCode, setVerificationCode] = useState("");
+  const [fieldErrors, setFieldErrors] = useState({});
+  const [passwordError, setPasswordError] = useState("");
   const [recoveryEmail, setRecoveryEmail] = useState("");
   const [recoveryCode, setRecoveryCode] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [newPasswordRepeat, setNewPasswordRepeat] = useState("");
-  const [passwordError, setPasswordError] = useState("");
-  const [fieldErrors, setFieldErrors] = useState({});
   const [recoveryError, setRecoveryError] = useState("");
   const [recoverySuccess, setRecoverySuccess] = useState("");
   const [resendTimer, setResendTimer] = useState(0);
@@ -35,33 +35,60 @@ export default function AuthModal({ onClose }) {
     setVerificationCode(e.target.value);
   };
 
-  const handleSubmit = () => {
-    const errors = {};
-    if (isRegister) {
-      if (!formData.email || !formData.email.includes("@")) errors.email = true;
-      if (!formData.phone) errors.phone = true;
-      if (!formData.password) errors.password = true;
-      if (formData.password !== formData.confirmPassword) {
-        errors.confirmPassword = true;
-        setPasswordError("Пароли не совпадают.");
+  const handleSubmit = async () => {
+  const errors = {};
+  if (isRegister) {
+    if (!formData.email || !formData.email.includes("@")) errors.email = true;
+    if (!formData.login) errors.login = true;
+    if (!formData.password) errors.password = true;
+  }
+
+  setFieldErrors(errors);
+  if (Object.keys(errors).length > 0) return;
+
+  if (isRegister) {
+    try {
+      const res = await fetch("/account/register", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          email: formData.email,
+          password: formData.password,
+          username: formData.login,
+        }),
+      });
+      const data = await res.json();
+      if (res.ok) {
+        setIsVerification(true);
       } else {
-        setPasswordError("");
+        alert(data.message || "Ошибка регистрации");
       }
+    } catch (err) {
+      console.error(err);
+      alert("Ошибка соединения с сервером");
     }
-
-    setFieldErrors(errors);
-
-    if (Object.keys(errors).length > 0) return;
-
-    if (isRegister) {
-      localStorage.setItem("email", formData.email);
-      localStorage.setItem("phone", formData.phone);
-      localStorage.setItem("auth_token", "dummy_token");
-      setIsVerification(true);
-    } else {
-      localStorage.setItem("auth_token", "dummy_token");
-      onClose();
+  } else {
+    try {
+      const res = await fetch("/account/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          email: formData.email,
+          password: formData.password,
+        }),
+      });
+      const data = await res.json();
+      if (res.ok) {
+        localStorage.setItem("auth_token", data.token);
+        onClose();
+      } else {
+        alert(data.message || "Ошибка входа");
+      }
+    } catch (err) {
+      console.error(err);
+      alert("Ошибка соединения с сервером");
     }
+  }
   };
 
   const handleVerificationSubmit = () => {
@@ -314,12 +341,12 @@ export default function AuthModal({ onClose }) {
                   style={getInputStyle("email")}
                 />
                 <input
-                  type="text"
-                  name="phone"
-                  placeholder="Номер телефона"
-                  value={formData.phone}
-                  onChange={handleInputChange}
-                  style={getInputStyle("phone")}
+                type="password"
+                name="password"
+                placeholder="Пароль"
+                value={formData.password}
+                onChange={handleInputChange}
+                style={getInputStyle("password")}
                 />
               </>
             )}
@@ -341,16 +368,6 @@ export default function AuthModal({ onClose }) {
               onChange={handleInputChange}
               style={getInputStyle("password")}
             />
-            {isRegister && (
-              <input
-                type="password"
-                name="confirmPassword"
-                placeholder="Повторите пароль"
-                value={formData.confirmPassword}
-                onChange={handleInputChange}
-                style={getInputStyle("confirmPassword")}
-              />
-            )}
             {passwordError && <p className="error-message">{passwordError}</p>}
             <div className="button-container" style={{ flexWrap: "nowrap", justifyContent: "center" }}>
               <button

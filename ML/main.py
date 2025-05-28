@@ -12,6 +12,7 @@ import pytesseract
 from pdf2image import convert_from_path
 from pdfminer.high_level import extract_pages
 from pdfminer.layout import LTTextContainer, LTChar, LTFigure 
+from config import GIGACHAT_API
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -102,78 +103,91 @@ def image_to_text(image_path):
 def pdf_parser(pdf_path: str) -> str:
     text_per_page = {}
     image_flag = False
-    
+    temp_files = []  # Собираем пути для последующей очистки
+
     pdfFileObj = open(pdf_path, "rb")
     pdfReaded = PyPDF2.PdfReader(pdfFileObj)
     
-    for pagenum, page in enumerate(extract_pages(pdf_path)):
-        pageObj = pdfReaded.pages[pagenum]
-        page_text = []
-        line_format = []
-        text_from_images = []
-        text_from_tables = []
-        page_content = []
-        table_in_page = -1
-        
-        with pdfplumber.open(pdf_path) as pdf:
-            page_tables = pdf.pages[pagenum]
-            tables = page_tables.find_tables()
-            
-            if len(tables) != 0:
-                table_in_page = 0
+    try:
+        for pagenum, page in enumerate(extract_pages(pdf_path)):
+            pageObj = pdfReaded.pages[pagenum]
+            page_text = []
+            text_from_images = []
+            text_from_tables = []
+            page_content = []
+            table_in_page = -1
 
-            for table_num in range(len(tables)):
-                table = extract_table(pdf_path, pagenum, table_num)
-                table_string = table_converter(table)
-                text_from_tables.append(table_string)
+            with pdfplumber.open(pdf_path) as pdf:
+                page_tables = pdf.pages[pagenum]
+                tables = page_tables.find_tables()
 
-        page_elements = [(element.y1, element) for element in page._objs]
-        page_elements.sort(key=lambda a: a[0], reverse=True)
+                if len(tables) != 0:
+                    table_in_page = 0
 
-        for i, component in enumerate(page_elements):
-            element = component[1]
+                for table_num in range(len(tables)):
+                    table = extract_table(pdf_path, pagenum, table_num)
+                    table_string = table_converter(table)
+                    text_from_tables.append(table_string)
 
-            # обработка таблицы
-            if table_in_page != -1 and is_element_inside_any_table(element, page, tables):
-                if find_table_for_element(element, page, tables) == table_in_page:
-                    page_content.append(text_from_tables[table_in_page])
-                    table_in_page += 1
-                continue
+            page_elements = [(element.y1, element) for element in page._objs]
+            page_elements.sort(key=lambda a: a[0], reverse=True)
 
-            # Обработка текста
-            if isinstance(element, LTTextContainer):  # Теперь LTTextContainer будет доступен
-                line_text, format_per_line = text_extraction(element)
-                page_text.append(line_text)
-                page_content.append(line_text)
+            for i, component in enumerate(page_elements):
+                element = component[1]
 
-            # Обработка изображений
-            if isinstance(element, LTFigure):
-                crop_image(element, pageObj)
-                convert_to_images('cropped_image.pdf')
-                image_text = image_to_text('PDF_image.png')
-                text_from_images.append(image_text)
-                page_content.append(image_text)
-                image_flag = True
+                if table_in_page != -1 and is_element_inside_any_table(element, page, tables):
+                    if find_table_for_element(element, page, tables) == table_in_page:
+                        page_content.append(text_from_tables[table_in_page])
+                        table_in_page += 1
+                    continue
 
-        text_per_page[f'Страница {pagenum}'] = [
-            page_text,
-            line_format,
-            text_from_images,
-            text_from_tables,
-            page_content
-        ]
+                if isinstance(element, LTTextContainer):
+                    line_text, _ = text_extraction(element)
+                    page_text.append(line_text)
+                    page_content.append(line_text)
+
+                if isinstance(element, LTFigure):
+                    cropped_path = f"cropped_image_{pagenum}_{i}.pdf"
+                    image_path = f"PDF_image_{pagenum}_{i}.png"
+                    temp_files.extend([cropped_path, image_path])
+
+                    # Обрезаем и сохраняем как PDF
+                    pageObj.mediabox.lower_left = (element.x0, element.y0)
+                    pageObj.mediabox.upper_right = (element.x1, element.y1)
+                    cropped_pdf_writer = PyPDF2.PdfWriter()
+                    cropped_pdf_writer.add_page(pageObj)
+                    with open(cropped_path, 'wb') as cropped_pdf_file:
+                        cropped_pdf_writer.write(cropped_pdf_file)
+
+                    # Конвертируем PDF в изображение
+                    images = convert_from_path(cropped_path)
+                    images[0].save(image_path, 'PNG')
+
+                    # Извлекаем текст из изображения
+                    image_text = image_to_text(image_path)
+                    text_from_images.append(image_text)
+                    page_content.append(image_text)
+                    image_flag = True
+
+            text_per_page[f'Страница {pagenum}'] = [
+                page_text,
+                [],  # line_format больше не нужен
+                text_from_images,
+                text_from_tables,
+                page_content
+            ]
+    finally:
+        pdfFileObj.close()
+
+        # Удаляем все временные файлы
+        for f in temp_files:
+            if os.path.exists(f):
+                os.remove(f)
 
     full_text = []
     for page_num in text_per_page:
         page_content = text_per_page[page_num][4]
         full_text.append('\n'.join(page_content))
-
-    # Закрытие файла и очистка
-    pdfFileObj.close()
-    if image_flag:
-        import os
-        os.remove('cropped_image.pdf')
-        os.remove('PDF_image.png')
 
     return '\n\n'.join(full_text)
 
@@ -290,7 +304,7 @@ class ResumeAnalyzer:
 
 if __name__ == "__main__":
     try:
-        api_key = "NDBkYzg5OTQtNTI1ZC00N2FkLWIyMjEtZDk2ZjQzZDU2MDM3Ojk5ZDUxZGMwLWZhYTMtNGFlYi05ODRjLTI1NGYzNTBiMGNhZg==" 
+        api_key = GIGACHAT_API
         
         analyzer = ResumeAnalyzer(gigachat_api_key=api_key)
         
