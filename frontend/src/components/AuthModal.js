@@ -9,7 +9,7 @@ export default function AuthModal({ onClose }) {
   const [isResetPassword, setIsResetPassword] = useState(false);
   const [formData, setFormData] = useState({
     email: "",
-    phone: "",
+    login: "",
     password: "",
     confirmPassword: "",
   });
@@ -39,7 +39,7 @@ export default function AuthModal({ onClose }) {
     const errors = {};
     if (isRegister) {
       if (!formData.email || !formData.email.includes("@")) errors.email = true;
-      if (!formData.phone) errors.phone = true;
+      if (!formData.login) errors.login = true;
       if (!formData.password) errors.password = true;
       if (formData.password !== formData.confirmPassword) {
         errors.confirmPassword = true;
@@ -55,7 +55,7 @@ export default function AuthModal({ onClose }) {
 
     if (isRegister) {
       localStorage.setItem("email", formData.email);
-      localStorage.setItem("phone", formData.phone);
+      localStorage.setItem("login", formData.login);
       localStorage.setItem("auth_token", "dummy_token");
       setIsVerification(true);
     } else {
@@ -315,11 +315,11 @@ export default function AuthModal({ onClose }) {
                 />
                 <input
                   type="text"
-                  name="phone"
-                  placeholder="Номер телефона"
-                  value={formData.phone}
+                  name="login"
+                  placeholder="Логин"
+                  value={formData.login}
                   onChange={handleInputChange}
-                  style={getInputStyle("phone")}
+                  style={getInputStyle("login")}
                 />
               </>
             )}

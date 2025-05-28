@@ -15,7 +15,7 @@
 - Фронтенд:
     - [GatsbyJS](https://www.gatsbyjs.com/) — генератор статических сайтов.
     - [TypeScript](https://www.typescriptlang.org/) — строго типизированный JavaScript.
-    - [Tailwind CSS](https://tailwindcss.com/) — CSS-фреймворк для быстрой разработки интерфейсов.
+    - [Tailwind CSS](https://tailwindcss.com/) — CSS-фреймворк для быстрой разработки интерфейсов и адаптивной верстки.
 - Бэкенд:
     - [FastAPI](https://fastapi.tiangolo.com) — современный фреймворк для создания API.
     - [Python](https://www.python.org/) — язык программирования для бэкенда.
@@ -47,7 +47,18 @@ git clone https://github.com/IMDash5/DeBugg
 cd frontend
 npm install
 ```
-3. Установите зависимости для бэкенда:
+3. Установите Tailwind CSS:
+```sh
+npm install -D tailwindcss postcss autoprefixer
+npx tailwindcss init -p
+```
+4. Настройте Tailwind, добавив в `src/index.css`:
+```css
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+```
+5. Установите зависимости для бэкенда:
 ```sh
 cd backend
 poetry install

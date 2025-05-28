@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 body {
   margin: 0;
   padding: 0;
@@ -12,9 +16,7 @@ body {
   background-size: cover;
   background-attachment: fixed; 
   background-position: center; 
-  height: 100vh;
-  overflow: hidden;
- 
+  min-height: 100vh;
 }
 
 code {
