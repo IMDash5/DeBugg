@@ -67,12 +67,6 @@ export default function Header() {
               >
                 Загрузить резюме
               </button>
-              <button
-                className="menu-item"
-                onClick={() => handleMenuClick("/payment")}
-              >
-                Оплата
-              </button>
             </div>
           </div>
         </div>
