@@ -8,7 +8,7 @@ import time
 from backend.app.authentication.security import pwd_context
 from backend.app.authentication.token import signJWT
 from backend.models.models import User
-from backend.models.schemas import UserCreate, UserLogin
+from backend.models.schemas import UserCreate, UserLogin, UserName
 
 from backend.app.mailer.mail import send_email, verification_codes, confirmation_code
 
@@ -41,7 +41,9 @@ async def register(db: AsyncSession, user_data: UserCreate):
         "username": user.username,
         "email": user.email,
         "hashed_password": user.hashed_password,
-        "is_verified": False
+        "is_verified": False,
+        "name": user.name,
+        "surname": user.surname
     }
 
 def get_user(request: Request):
@@ -67,7 +69,9 @@ async def auth(db: AsyncSession, user_data: UserLogin):
             "username": user.username,
             "email": user.email,
             "hashed_password": user.hashed_password,
-            "is_verified": user.is_verified
+            "is_verified": user.is_verified,
+            "name": user.name,
+            "surname": user.surname 
         }
         return cookies(info)
 
@@ -95,3 +99,11 @@ async def verification(user_email, db: AsyncSession, code: str):
         return {"status": "success"}
     else:
         return {"status": "invalid code"}
+
+async def name(user_email, db: AsyncSession, user_data: UserName):
+    """Имя и фамилия пользователя"""
+    user = await db.scalar(select(User).where(User.email == user_email))
+    user.name = user_data.name
+    user.surname = user_data.surname
+    db.add(user)
+    await db.commit()

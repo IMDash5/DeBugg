@@ -349,14 +349,6 @@ const handleVerificationSubmit = async () => {
             {isRegister && (
               <>
                 <input
-                  type="text"
-                  name="login"
-                  placeholder="Логин"
-                  value={formData.login}
-                  onChange={handleInputChange}
-                  style={getInputStyle("login")}
-                />
-                <input
                   type="email"
                   name="email"
                   placeholder="Почта"
@@ -371,6 +363,14 @@ const handleVerificationSubmit = async () => {
                   value={formData.password}
                   onChange={handleInputChange}
                   style={getInputStyle("password")}
+                />
+                <input
+                  type="text"
+                  name="login"
+                  placeholder="Логин"
+                  value={formData.login}
+                  onChange={handleInputChange}
+                  style={getInputStyle("login")}
                 />
               </>
             )}

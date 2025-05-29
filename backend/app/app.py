@@ -10,7 +10,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from backend.app.parser_pdf import pdf_parser
-from backend.app.authentication.auth import register, get_user, cookie_check, cookies, auth, logout, verification, verification_request
+from backend.app.authentication.auth import register, get_user, cookie_check, cookies, auth, logout, verification, verification_request, name
 from backend.app.authentication.token import decodeJWT
 from backend.models import schemas
 from backend.models.database import get_session
@@ -116,7 +116,7 @@ async def verify_user(
     user_email = user_data["email"]
     return await verification(user_email, db, code)
 
-# Эндпоинт для загрузки одного файла
+# Эндпоинт для анализа резюме
 @app.post("/analyze-resume/")
 async def analyze_resume(file: UploadFile = File(...), query: str = Form(...)):
     if file.content_type != "application/pdf":
@@ -124,16 +124,13 @@ async def analyze_resume(file: UploadFile = File(...), query: str = Form(...)):
 
     temp_path = None
     try:
-        # Создаем временный файл
         with tempfile.NamedTemporaryFile(delete=False, suffix=".pdf") as tmp:
             temp_path = tmp.name
-            # Копируем содержимое файла
             await file.seek(0)
             shutil.copyfileobj(file.file, tmp)
 
-        await file.close()  # Закрываем UploadFile
+        await file.close()
 
-        # Теперь анализируем файл
         resume_text = analyzer.extract_text_from_pdf(temp_path)
         result = analyzer.analyze_resume(resume_text, query)
 
@@ -141,17 +138,25 @@ async def analyze_resume(file: UploadFile = File(...), query: str = Form(...)):
         raise HTTPException(status_code=500, detail=f"Ошибка при обработке файла: {str(e)}")
 
     finally:
-        # Удаляем временный файл
         if temp_path and os.path.exists(temp_path):
             try:
                 os.remove(temp_path)
             except PermissionError:
                 import time
-                time.sleep(0.1)  # Небольшая пауза и повторная попытка
+                time.sleep(0.1)
                 try:
                     os.remove(temp_path)
                 except Exception as e:
-                    # Логируем ошибку, но не падаем
                     logger.error(f"Не удалось удалить временный файл {temp_path}: {e}")
 
     return JSONResponse(content={"result": result})
+
+@app.post("/account/name")
+async def name_user(
+    user_name: schemas.UserName,
+    db: AsyncSession = Depends(get_session),
+    user_data: dict = Depends(get_user_info)
+):
+    user_email = user_data["email"]
+    await name(user_email, db, user_name)
+    return {"message": "Имя и фамилия пользователя успешно обновлены"}

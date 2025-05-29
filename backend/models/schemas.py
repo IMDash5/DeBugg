@@ -14,3 +14,9 @@ class UserLogin(BaseModel):
 
     email: EmailStr
     password: str
+
+class UserName(BaseModel):
+    """Схема данных имени и фамилии пользователя"""
+
+    name: str
+    surname: str

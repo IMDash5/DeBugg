@@ -4,9 +4,10 @@ import "../styles/Account.css";
 
 export default function Account() {
   const navigate = useNavigate();
-  const [firstName, setFirstName] = useState(localStorage.getItem("firstName") || "");
-  const [lastName, setLastName] = useState(localStorage.getItem("lastName") || "");
-  const [email] = useState(localStorage.getItem("email") || "Не указано");
+  const [name, setname] = useState(localStorage.getItem("name") || "");
+  const [surname, setsurname] = useState(localStorage.getItem("surname") || "");
+  const [email, setEmail] = useState(localStorage.getItem("email") || "Не указано");
+  const [login, setLogin] = useState(localStorage.getItem("login") || "Не указано");
   const [phone] = useState(localStorage.getItem("phone") || "Не указано");
   const [isEditing, setIsEditing] = useState(false);
   const [avatar, setAvatar] = useState(localStorage.getItem("avatar") || "/images/account_logo.png");
@@ -16,14 +17,69 @@ export default function Account() {
   useEffect(() => {
     if (!token) {
       navigate("/login");
-    }
-  }, [token, navigate]);
+    } else {
+      const fetchUserData = async () => {
+        try {
+          const response = await fetch("/get_user_info_by_token", {
+            method: "GET",
+            headers: {
+              "Authorization": `Bearer ${token}`,
+              "Content-Type": "application/json",
+            },
+          });
 
-  const handleSave = () => {
-    localStorage.setItem("firstName", firstName);
-    localStorage.setItem("lastName", lastName);
-    setIsEditing(false);
-    alert("Данные профиля обновлены!");
+          if (response.ok) {
+            const data = await response.json();
+            // Предположим, что бэкенд возвращает { name, surname, email }
+            setname(data.name || "");
+            setsurname(data.surname || "");
+            setEmail(data.email || "");
+
+            // Сохраним в localStorage, если нужно
+            localStorage.setItem("name", data.name || "");
+            localStorage.setItem("surname", data.surname || "");
+            localStorage.setItem("email", data.email || "");
+          } else {
+            console.error("Ошибка загрузки данных пользователя:", response.status);
+          }
+        } catch (error) {
+          console.error("Ошибка загрузки данных пользователя:", error);
+        }
+      };
+
+      fetchUserData();
+    }
+    }, [token, navigate]);
+
+  const handleSave = async () => {
+  try {
+    const response = await fetch("/account/name", {
+      method: "POST",
+      headers: {
+        "Authorization": `Bearer ${token}`,
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        name: name,
+        surname: surname,
+      }),
+    });
+
+    if (response.ok) {
+      const data = await response.json();
+      // Обнови localStorage, если нужно
+      localStorage.setItem("name", name);
+      localStorage.setItem("surname", surname);
+      alert("Данные профиля успешно обновлены!");
+      setIsEditing(false);
+    } else {
+      const errorData = await response.json();
+      alert(`Ошибка: ${errorData.message || "Не удалось обновить профиль"}`);
+    }
+  } catch (error) {
+    console.error("Ошибка обновления профиля:", error);
+    alert("Произошла ошибка при обновлении профиля. Попробуйте еще раз.");
+  }
   };
 
   const handleLogout = async () => {
@@ -91,8 +147,8 @@ export default function Account() {
           onClick={handleAvatarClick}
         />
         <h2 className="account-name">
-          {firstName && lastName
-            ? `${firstName} ${lastName}`
+          {name && surname
+            ? `${name} ${surname}`
             : "Неизвестный пользователь"}
         </h2>
       </div>
@@ -102,11 +158,11 @@ export default function Account() {
         <div className="account-info-row">
           <div>
             <p className="account-label">Имя</p>
-            <p>{firstName || "Не указано"}</p>
+            <p>{name || "Не указано"}</p>
           </div>
           <div>
             <p className="account-label">Фамилия</p>
-            <p>{lastName || "Не указано"}</p>
+            <p>{surname || "Не указано"}</p>
           </div>
         </div>
         <div className="account-info-row">
@@ -136,15 +192,15 @@ export default function Account() {
             <input
               type="text"
               placeholder="Имя"
-              value={firstName}
-              onChange={(e) => setFirstName(e.target.value)}
+              value={name}
+              onChange={(e) => setname(e.target.value)}
               className="account-input"
             />
             <input
               type="text"
               placeholder="Фамилия"
-              value={lastName}
-              onChange={(e) => setLastName(e.target.value)}
+              value={surname}
+              onChange={(e) => setsurname(e.target.value)}
               className="account-input"
             />
             <button className="save-button" onClick={handleSave}>
