@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 body {
   margin: 0;
   padding: 0;
@@ -12,12 +16,24 @@ body {
   background-size: cover;
   background-attachment: fixed; 
   background-position: center; 
+  min-height: 100vh;
+}
 
-  overflow-y: auto;
- 
+[data-theme="light"] body {
+  background-color: #f3f4f6;
+  color: #222;
+  background-image: url('..//public/images/fon.gif');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+  background-position: center;
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+[data-theme="light"] code {
+  color: #222;
 }
