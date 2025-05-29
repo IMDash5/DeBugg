@@ -71,6 +71,7 @@ async def register_user(
 ):
     if check:
         data = await register(db=db, user_data=user_data)
+        await verification_request(user_data.email)
         return cookies(data)
 
 # Эндпоинт для получения информации о пользователе через JWT-токен
@@ -108,7 +109,7 @@ async def verify_request(user_data: dict = Depends(get_user_info)):
 
 @app.post("/account/register/verify")
 async def verify_user(
-    code: str,
+    code: str = Form(...),
     user_data: dict = Depends(get_user_info),
     db: AsyncSession = Depends(get_session)
 ):
