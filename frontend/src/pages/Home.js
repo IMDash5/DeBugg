@@ -7,8 +7,30 @@ export default function Home() {
   }, []);
 
   return (
-    <div className="container">
-      <main className="main">
+    <div
+      className="container"
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "center",
+        width: "100vw",
+        boxSizing: "border-box",
+      }}
+    >
+      <main
+        className="main"
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "center",
+          width: "100%",
+          maxWidth: 800,
+          margin: "100px auto 0 auto", 
+          minHeight: "300px",
+        }}
+      >
         <h2 className="subtitle">О нас</h2>
         <p className="about-text">
           Debugg™ — это инновационный проект, который использует нейронные сети для автоматического анализа резюме. 

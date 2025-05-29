@@ -103,3 +103,83 @@
   gap: 10px;
   margin-top: 20px;
 }
+
+@media (max-width: 700px) {
+  .account-container {
+    flex-direction: column;
+    max-width: 98vw;
+    margin: 16px auto;
+    border-radius: 10px;
+  }
+  .account-sidebar, .account-info {
+    width: 100% !important;
+    padding: 16px !important;
+    border-radius: 0 !important;
+  }
+  .account-avatar {
+    width: 72px;
+    height: 72px;
+  }
+  .account-section-title {
+    font-size: 1.1rem;
+    margin-bottom: 14px;
+  }
+  .account-info-row {
+    flex-direction: column;
+    gap: 8px;
+  }
+  .button-container {
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 14px;
+  }
+}
+
+[data-theme="light"] .account-container {
+  background: #fff;
+  color: #222;
+}
+
+[data-theme="light"] .account-sidebar {
+  background: linear-gradient(to bottom, #fde68a, #fbbf24);
+  color: #222;
+}
+
+[data-theme="light"] .account-info {
+  background: #fff;
+  color: #222;
+}
+
+[data-theme="light"] .account-section-title {
+  color: #222;
+  border-bottom: 1px solid #d1d5db;
+}
+
+[data-theme="light"] .account-info-row p {
+  color: #222;
+}
+
+[data-theme="light"] .account-label {
+  color: #6b7280;
+}
+
+[data-theme="light"] .logout-button {
+  background: #f87171;
+  color: #fff;
+}
+
+[data-theme="light"] .logout-button:hover {
+  background: #dc2626;
+}
+
+[data-theme="light"] .edit-button,
+[data-theme="light"] .save-button {
+  background: #fbbf24;
+  color: #222;
+}
+
+[data-theme="light"] .edit-button:hover,
+[data-theme="light"] .save-button:hover {
+  background: #fde68a;
+  color: #222;
+}

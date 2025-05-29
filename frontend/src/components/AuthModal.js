@@ -59,7 +59,7 @@ export default function AuthModal({ onClose }) {
       });
       const data = await res.json();
       if (res.ok) {
-        setIsVerification(true);
+
       } else {
         alert(data.message || "Ошибка регистрации");
       }
@@ -67,6 +67,7 @@ export default function AuthModal({ onClose }) {
       console.error(err);
       alert("Ошибка соединения с сервером");
     }
+
   } else {
     try {
       const res = await fetch("/account/login", {

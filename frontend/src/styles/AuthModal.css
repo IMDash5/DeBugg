@@ -15,8 +15,9 @@
   background: #1f2937; 
   padding: 32px; 
   border-radius: 12px;
-  min-width: 600px !important;  
-  width: 100vw !important;
+  min-width: 320px !important;  /* уменьшено для мобильных */
+  width: 96vw !important;
+  max-width: 600px !important;
   box-sizing: border-box !important;
   text-align: center;
   color: white; 
@@ -145,13 +146,19 @@
   right: 12px;
   background: transparent;
   color: white;
-  border: none;
-  font-size: 24px;
+  border: 2px solid #9ca3af; /* квадратная и больше на 2px */
+  border-radius: 4px; /* квадратная, не круглая */
+  font-size: 20px;
   cursor: pointer;
+  line-height: 1;
+  padding: 2px 6px 2px 6px; /* немного внутреннего отступа */
+  box-sizing: border-box;
+  transition: border-color 0.2s;
 }
 
 .auth-modal-content .close-icon:hover {
-  color: #f87171; 
+  color: #f87171;
+  border-color: #f87171;
 }
 
 .recover-button {
@@ -168,4 +175,74 @@
 
 .recover-button:hover {
   background: #d97706; /* Более темный оранжевый при наведении */
+}
+
+@media (max-width: 600px) {
+  .auth-modal-content {
+    min-width: 0 !important;
+    width: 98vw !important;
+    max-width: 98vw !important;
+    padding: 16px !important;
+    border-radius: 8px;
+  }
+  .auth-modal-content input,
+  .auth-modal-content button {
+    font-size: 1rem !important;
+    padding: 10px !important;
+  }
+  .auth-modal-content .button-container {
+    flex-direction: column !important;
+    gap: 10px !important;
+  }
+  .auth-modal-content .close-icon {
+    font-size: 24px !important;
+    top: 6px !important;
+    right: 8px !important;
+    padding: 2px 8px 2px 8px !important;
+  }
+}
+
+[data-theme="light"] .auth-modal-content {
+  background: #fff;
+  color: #222;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+[data-theme="light"] .auth-modal-content input {
+  background: #f3f4f6;
+  color: #222;
+  border: 2px solid #d1d5db;
+}
+
+[data-theme="light"] .auth-modal-content input:focus {
+  border: 2px solid #fbbf24;
+}
+
+[data-theme="light"] .auth-modal-content button,
+[data-theme="light"] .recover-button {
+  background: #fbbf24;
+  color: #222;
+}
+
+[data-theme="light"] .auth-modal-content button:hover,
+[data-theme="light"] .recover-button:hover {
+  background: #fde68a;
+  color: #222;
+}
+
+[data-theme="light"] .auth-modal-content .close-button {
+  background: #f3f4f6;
+  color: #222;
+}
+
+[data-theme="light"] .auth-modal-content .close-button:hover {
+  background: #d1d5db;
+}
+
+[data-theme="light"] .auth-modal-content .close-icon {
+  color: #222;
+}
+
+[data-theme="light"] .error-message {
+  color: #dc2626;
 }
