@@ -187,3 +187,54 @@
     display: none !important;
   }
 }
+
+[data-theme="light"] .main {
+  background: #fff;
+  border: 1px solid #d1d5db;
+}
+
+[data-theme="light"] .subtitle {
+  color: #222;
+}
+
+[data-theme="light"] .resume-input {
+  background: #f3f4f6;
+  color: #222;
+  border: 1px solid #d1d5db;
+}
+
+[data-theme="light"] .resume-input::placeholder {
+  color: #6b7280;
+}
+
+[data-theme="light"] .resume-input:focus {
+  border: 2px solid #fbbf24;
+}
+
+[data-theme="light"] .about-text {
+  color: #374151;
+}
+
+[data-theme="light"] .file-upload-button,
+[data-theme="light"] .submit-button {
+  background-color: #fbbf24;
+  color: #222;
+}
+
+[data-theme="light"] .file-upload-button:hover,
+[data-theme="light"] .submit-button:hover {
+  background-color: #fde68a;
+}
+
+[data-theme="light"] .file-upload-button.file-selected {
+  border: 2px solid #2563eb;
+}
+
+[data-theme="light"] .result-panel {
+  background: #f3f4f6;
+  color: #222;
+}
+
+[data-theme="light"] .error-message {
+  color: #dc2626;
+}
