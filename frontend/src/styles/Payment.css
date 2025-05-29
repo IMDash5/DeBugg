@@ -10,14 +10,17 @@
   align-items: center;
   border: 1px solid #374151;
 }  
+
 .payment-form {
   width: 100%;
   display: flex;
   flex-direction: column;
   gap: 12px;
+  align-items: center;
 }
 
 .payment-input {
+  width: 100%;
   margin-top: 10px;
   padding: 12px;
   background: #374151;
@@ -30,8 +33,41 @@
 .payment-input::placeholder {
   color: #9ca3af;
 }
-  
+
 .payment-input:focus {
   border: 2px solid #3b82f6;
 }
 
+.payment-button {
+  width: 100%;
+  padding: 12px;
+  font-size: 1rem;
+  color: white;
+  background-color: #2563eb;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.3s ease-in-out;
+}
+
+.payment-button:hover {
+  background-color: #1e40af;
+}
+
+@media (max-width: 600px) {
+  .payment-wrapper {
+    width: 90%;
+    padding: 16px;
+    font-size: 0.95rem;
+  }
+
+  .payment-button {
+    font-size: 0.95rem;
+    padding: 10px;
+  }
+
+  .payment-input {
+    font-size: 0.95rem;
+    padding: 10px;
+  }
+}

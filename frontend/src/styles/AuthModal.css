@@ -1,0 +1,248 @@
+.auth-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7); 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.auth-modal-content {
+  background: #1f2937; 
+  padding: 32px; 
+  border-radius: 12px;
+  min-width: 320px !important;  /* уменьшено для мобильных */
+  width: 96vw !important;
+  max-width: 600px !important;
+  box-sizing: border-box !important;
+  text-align: center;
+  color: white; 
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5); 
+  position: relative; 
+  display: flex; 
+  flex-direction: column; 
+  justify-content: center; 
+  align-items: center; 
+}
+
+.auth-modal-content input {
+  width: 100%;
+  margin: 12px 0;
+  padding: 14px;
+  background: #374151; 
+  color: white;
+  border: 2px solid #4b5563; 
+  border-radius: 8px;
+  outline: none;
+  transition: border 0.3s;
+}
+
+.auth-modal-content input::placeholder {
+  color: #9ca3af; 
+}
+
+.auth-modal-content input:focus {
+  border: 2px solid #3b82f6; 
+}
+
+.auth-modal-content button {
+  margin: 0; 
+  padding: 12px 20px;
+  background: #2563eb; 
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background 0.3s ease-in-out;
+}
+
+.auth-modal-content button:hover {
+  background: #1e40af; 
+}
+
+.auth-modal-content .button-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: center;
+  gap: 16px;
+  width: 100%;
+  margin-top: 16px;
+}
+
+.auth-modal-content .button-container button,
+.auth-modal-content .button-container .recover-button,
+.auth-modal-content .button-container .resend-btn {
+  min-width: 180px;
+  max-width: 240px;
+  height: 52px;
+  font-size: 1.08rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  white-space: normal;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding: 0 12px;
+  text-align: center;
+  line-height: 1.2;
+  box-sizing: border-box;
+}
+
+/* Для кнопки "Отправить код" и "Назад" на первом шаге восстановления */
+.auth-modal-content .button-container button:not(:last-child) {
+  min-width: 180px;
+  max-width: 240px;
+  height: 52px;
+  font-size: 1.08rem;
+  padding: 0 12px;
+}
+
+/* Для кнопки "Отправить код повторно" с переносом текста */
+.auth-modal-content .button-container .resend-btn span {
+  display: block;
+  width: 100%;
+  text-align: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: normal;
+}
+
+.auth-modal-content .toggle-button {
+  background: transparent;
+  color: #3b82f6; 
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  text-decoration: underline;
+}
+
+.auth-modal-content .toggle-button:hover {
+  color: #2563eb; 
+}
+
+.auth-modal-content .close-button {
+  background: #374151; 
+  color: white;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  padding: 8px 16px;
+  border-radius: 8px;
+}
+
+.auth-modal-content .close-button:hover {
+  background: #4b5563; 
+}
+
+.auth-modal-content .close-icon {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: transparent;
+  color: white;
+  border: 2px solid #9ca3af; /* квадратная и больше на 2px */
+  border-radius: 4px; /* квадратная, не круглая */
+  font-size: 20px;
+  cursor: pointer;
+  line-height: 1;
+  padding: 2px 6px 2px 6px; /* немного внутреннего отступа */
+  box-sizing: border-box;
+  transition: border-color 0.2s;
+}
+
+.auth-modal-content .close-icon:hover {
+  color: #f87171;
+  border-color: #f87171;
+}
+
+.recover-button {
+  margin-top: 10px;
+  padding: 12px 20px;
+  background: #f59e0b; 
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background 0.3s ease-in-out;
+}
+
+.recover-button:hover {
+  background: #d97706; /* Более темный оранжевый при наведении */
+}
+
+@media (max-width: 600px) {
+  .auth-modal-content {
+    min-width: 0 !important;
+    width: 98vw !important;
+    max-width: 98vw !important;
+    padding: 16px !important;
+    border-radius: 8px;
+  }
+  .auth-modal-content input,
+  .auth-modal-content button {
+    font-size: 1rem !important;
+    padding: 10px !important;
+  }
+  .auth-modal-content .button-container {
+    flex-direction: column !important;
+    gap: 10px !important;
+  }
+  .auth-modal-content .close-icon {
+    font-size: 24px !important;
+    top: 6px !important;
+    right: 8px !important;
+    padding: 2px 8px 2px 8px !important;
+  }
+}
+
+[data-theme="light"] .auth-modal-content {
+  background: #fff;
+  color: #222;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+[data-theme="light"] .auth-modal-content input {
+  background: #f3f4f6;
+  color: #222;
+  border: 2px solid #d1d5db;
+}
+
+[data-theme="light"] .auth-modal-content input:focus {
+  border: 2px solid #fbbf24;
+}
+
+[data-theme="light"] .auth-modal-content button,
+[data-theme="light"] .recover-button {
+  background: #fbbf24;
+  color: #222;
+}
+
+[data-theme="light"] .auth-modal-content button:hover,
+[data-theme="light"] .recover-button:hover {
+  background: #fde68a;
+  color: #222;
+}
+
+[data-theme="light"] .auth-modal-content .close-button {
+  background: #f3f4f6;
+  color: #222;
+}
+
+[data-theme="light"] .auth-modal-content .close-button:hover {
+  background: #d1d5db;
+}
+
+[data-theme="light"] .auth-modal-content .close-icon {
+  color: #222;
+}
+
+[data-theme="light"] .error-message {
+  color: #dc2626;
+}

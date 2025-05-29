@@ -1,0 +1,117 @@
+body {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; 
+  background-color: #1f2937; 
+}
+
+/* Контейнер для формы */
+.auth-wrapper {
+  width: 100%;
+  max-width: 600px; 
+  background: #2d3748; 
+  padding: 24px;  
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); 
+  border: 2px solid #374151; 
+}  
+
+/* Стиль для формы */
+.auth-form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 12px; 
+}
+
+/* Стиль для полей ввода */
+.auth-input {
+  margin-top: 10px;
+  padding: 14px; 
+  background: #374151; 
+  color: white;
+  border: 2px solid #4b5563; 
+  border-radius: 8px;  
+  transition: border 0.3s; 
+}
+
+/* Стиль для текста в поле ввода */
+.auth-input::placeholder {
+  color: #9ca3af; 
+}
+  
+.auth-input:focus {
+  border: 3px solid #3b82f6;  
+}
+
+.auth-button {
+  padding: 14px; 
+  background-color: #4CAF50;  
+  color: white;
+  border: 2px solid #374151; 
+  border-radius: 8px;  
+  cursor: pointer;
+  font-size: 18px; 
+  transition: background-color 0.3s ease; 
+}
+
+
+.auth-button:hover {
+  background-color: #45a049;
+}
+
+.auth-header {
+  text-align: center;
+  color: #fff;
+  font-size: 24px;  
+  margin-bottom: 30px; 
+}
+
+.error-message {
+  color: red;
+  font-size: 16px; 
+  text-align: center;
+  margin-bottom: 15px;
+}
+
+.auth-link {
+  color: #3b82f6;
+  text-decoration: none;
+}
+
+.auth-link:hover {
+  text-decoration: underline; 
+}
+
+.auth-link-light {
+  color: #a0aec0; 
+  text-decoration: none;
+  font-size: 16px; 
+}
+
+.auth-link-light:hover {
+  text-decoration: underline;
+}
+
+@media (max-width: 600px) {
+  .auth-wrapper {
+    width: 98vw !important;
+    max-width: 98vw !important;
+    padding: 12px !important;
+    border-radius: 8px;
+  }
+  .auth-form {
+    gap: 8px !important;
+  }
+  .auth-input, .auth-button {
+    font-size: 1rem !important;
+    padding: 10px !important;
+  }
+  .auth-header {
+    font-size: 20px !important;
+    margin-bottom: 18px !important;
+  }
+}
