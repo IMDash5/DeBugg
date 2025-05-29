@@ -9,17 +9,17 @@ export default function AuthModal({ onClose }) {
   const [isResetPassword, setIsResetPassword] = useState(false);
   const [formData, setFormData] = useState({
     email: "",
-    login: "",
     password: "",
-    confirmPassword: "",
+    login: "",
   });
+
   const [verificationCode, setVerificationCode] = useState("");
+  const [fieldErrors, setFieldErrors] = useState({});
+  const [passwordError, setPasswordError] = useState("");
   const [recoveryEmail, setRecoveryEmail] = useState("");
   const [recoveryCode, setRecoveryCode] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [newPasswordRepeat, setNewPasswordRepeat] = useState("");
-  const [passwordError, setPasswordError] = useState("");
-  const [fieldErrors, setFieldErrors] = useState({});
   const [recoveryError, setRecoveryError] = useState("");
   const [recoverySuccess, setRecoverySuccess] = useState("");
   const [resendTimer, setResendTimer] = useState(0);
@@ -35,41 +35,85 @@ export default function AuthModal({ onClose }) {
     setVerificationCode(e.target.value);
   };
 
-  const handleSubmit = () => {
-    const errors = {};
-    if (isRegister) {
-      if (!formData.email || !formData.email.includes("@")) errors.email = true;
-      if (!formData.login) errors.login = true;
-      if (!formData.password) errors.password = true;
-      if (formData.password !== formData.confirmPassword) {
-        errors.confirmPassword = true;
-        setPasswordError("Пароли не совпадают.");
+  const handleSubmit = async () => {
+  const errors = {};
+  if (isRegister) {
+    if (!formData.email || !formData.email.includes("@")) errors.email = true;
+    if (!formData.login) errors.login = true;
+    if (!formData.password) errors.password = true;
+  }
+
+  setFieldErrors(errors);
+  if (Object.keys(errors).length > 0) return;
+
+  if (isRegister) {
+    try {
+      const res = await fetch("/account/register", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          email: formData.email,
+          password: formData.password,
+          username: formData.login,
+        }),
+      });
+      const data = await res.json();
+      if (res.ok) {
+
       } else {
-        setPasswordError("");
+        alert(data.message || "Ошибка регистрации");
       }
+    } catch (err) {
+      console.error(err);
+      alert("Ошибка соединения с сервером");
     }
 
-    setFieldErrors(errors);
-
-    if (Object.keys(errors).length > 0) return;
-
-    if (isRegister) {
-      localStorage.setItem("email", formData.email);
-      localStorage.setItem("login", formData.login);
-      localStorage.setItem("auth_token", "dummy_token");
-      setIsVerification(true);
-    } else {
-      localStorage.setItem("auth_token", "dummy_token");
-      onClose();
+  } else {
+    try {
+      const res = await fetch("/account/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          email: formData.email,
+          password: formData.password,
+        }),
+      });
+      const data = await res.json();
+      if (res.ok) {
+        localStorage.setItem("auth_token", data.token);
+        onClose();
+      } else {
+        alert(data.message || "Ошибка входа");
+      }
+    } catch (err) {
+      console.error(err);
+      alert("Ошибка соединения с сервером");
     }
+  }
   };
 
-  const handleVerificationSubmit = () => {
-    if (verificationCode === "123456") {
+const handleVerificationSubmit = async () => {
+  try {
+    const formData = new FormData();
+    formData.append("code", verificationCode);
+
+    const res = await fetch("/account/register/verify", {
+      method: "POST",
+      body: formData,
+      credentials: "include"
+    });
+
+    const data = await res.json();
+    if (res.ok) {
       alert("Почта успешно подтверждена!");
-      onClose();
+      localStorage.setItem("auth_token", data.token);
+      onClose(); 
     } else {
-      alert("Неверный код. Попробуйте снова.");
+      alert(data.message || "Неверный код. Попробуйте снова.");
+    }
+  } catch (err) {
+    console.error(err);
+    alert("Ошибка соединения с сервером");
     }
   };
 
@@ -314,6 +358,14 @@ export default function AuthModal({ onClose }) {
                   style={getInputStyle("email")}
                 />
                 <input
+                  type="password"
+                  name="password"
+                  placeholder="Пароль"
+                  value={formData.password}
+                  onChange={handleInputChange}
+                  style={getInputStyle("password")}
+                />
+                <input
                   type="text"
                   name="login"
                   placeholder="Логин"
@@ -324,32 +376,24 @@ export default function AuthModal({ onClose }) {
               </>
             )}
             {!isRegister && (
-              <input
-                type="email"
-                name="email"
-                placeholder="Почта"
-                value={formData.email}
-                onChange={handleInputChange}
-                style={getInputStyle("email")}
-              />
-            )}
-            <input
-              type="password"
-              name="password"
-              placeholder="Пароль"
-              value={formData.password}
-              onChange={handleInputChange}
-              style={getInputStyle("password")}
-            />
-            {isRegister && (
-              <input
-                type="password"
-                name="confirmPassword"
-                placeholder="Повторите пароль"
-                value={formData.confirmPassword}
-                onChange={handleInputChange}
-                style={getInputStyle("confirmPassword")}
-              />
+              <>
+                <input
+                  type="email"
+                  name="email"
+                  placeholder="Почта"
+                  value={formData.email}
+                  onChange={handleInputChange}
+                  style={getInputStyle("email")}
+                />
+                <input
+                  type="password"
+                  name="password"
+                  placeholder="Пароль"
+                  value={formData.password}
+                  onChange={handleInputChange}
+                  style={getInputStyle("password")}
+                />
+              </>
             )}
             {passwordError && <p className="error-message">{passwordError}</p>}
             <div className="button-container" style={{ flexWrap: "nowrap", justifyContent: "center" }}>

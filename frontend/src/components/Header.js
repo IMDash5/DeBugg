@@ -8,6 +8,7 @@ export default function Header() {
   const [isTouchDevice, setIsTouchDevice] = useState(false);
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false); 
   const [theme, setTheme] = useState("dark");
+  const [closeTimer, setCloseTimer] = useState(null);
   const navigate = useNavigate();
   const userName = localStorage.getItem("username") || "Меню";
 
@@ -35,10 +36,25 @@ export default function Header() {
     setTheme((prev) => (prev === "dark" ? "light" : "dark"));
   };
 
+
   useEffect(() => {
     const hasTouch = "ontouchstart" in window || navigator.maxTouchPoints > 0;
     setIsTouchDevice(hasTouch);
+    return () => clearTimeout(closeTimer); // Очистка таймера при размонтировании
   }, []);
+
+  const handleMouseEnter = () => {
+    if (!isTouchDevice) {
+      clearTimeout(closeTimer);
+      setIsMenuOpen(true);
+    }
+  };
+
+  const handleMouseLeave = () => {
+    if (!isTouchDevice) {
+      setCloseTimer(setTimeout(() => setIsMenuOpen(false), 300));
+    }
+  };
 
   const handleMenuClick = (path) => {
     setIsMenuOpen(false);
@@ -72,8 +88,8 @@ export default function Header() {
         </h1>
         <div
           className="profile-container"
-          onMouseEnter={() => !isTouchDevice && setIsMenuOpen(true)}
-          onMouseLeave={() => !isTouchDevice && setIsMenuOpen(false)}
+          onMouseEnter={handleMouseEnter}
+          onMouseLeave={handleMouseLeave}
           onClick={handleContainerClick}
         >
           <span className="user-name">{userName}</span>

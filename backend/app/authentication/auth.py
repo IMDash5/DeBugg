@@ -3,12 +3,14 @@ from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 from starlette.responses import JSONResponse
 from starlette.status import HTTP_400_BAD_REQUEST
+import time
 
 from backend.app.authentication.security import pwd_context
 from backend.app.authentication.token import signJWT
 from backend.models.models import User
 from backend.models.schemas import UserCreate, UserLogin
 
+from backend.app.mailer.mail import send_email, verification_codes, confirmation_code
 
 def cookies(user_data):
     """Создание куки"""
@@ -46,10 +48,6 @@ def get_user(request: Request):
     """Получение куки"""
     return request.cookies.get("auth_token")
 
-def get_user_token(request: Request):
-    """Получение куки"""
-    return request.cookies.get("auth_token")
-
 def cookie_check(request: Request):
     """Проверка наличия куки"""
     cookie = request.cookies.get("auth_token")
@@ -77,3 +75,23 @@ def logout(response: Response):
     """Разлогинивание пользователя"""
     response.delete_cookie(key="auth_token")
     return {"status": "logged out"}
+
+async def verification_request(user_email):
+    code = confirmation_code()
+    await send_email(receiver=user_email, code=code)
+
+
+async def verification(user_email, db: AsyncSession, code: str):
+    user = await db.scalar(select(User).where(User.email == user_email))
+    record = verification_codes.get(user_email)
+    
+    if not record or time.time() > record["expires_at"]:
+        return {"status": "expired or not found"}
+
+    if record["code"] == code:
+        user.is_verified = True
+        await db.commit()
+        del verification_codes[user_email]
+        return {"status": "success"}
+    else:
+        return {"status": "invalid code"}

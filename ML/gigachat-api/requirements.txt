@@ -1,4 +1,0 @@
-PyPDF2==3.0.1
-langchain==0.3.21
-langchain-gigachat==0.3.8
-gigachat==0.1.39.post1

@@ -30,6 +30,7 @@
   align-items: center;
   gap: 10px;
   position: relative;
+  padding: 10px;
 }
 
 .user-name {
@@ -64,7 +65,7 @@
   flex-direction: column;
   opacity: 0;
   transform: scale(0.9);
-  transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+  transition: opacity 0.3s ease, visibility  0.3s ease;
   pointer-events: none;
   z-index: 1000;
 }
@@ -73,6 +74,7 @@
   opacity: 1;
   transform: scale(1);
   pointer-events: auto;
+  visibility: visible;
 }
 
 .menu-item {

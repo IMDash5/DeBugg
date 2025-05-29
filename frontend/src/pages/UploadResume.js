@@ -29,24 +29,43 @@ export default function UploadResume() {
   };
 
   const handleSubmit = async () => {
-    if (!selectedFile) {
-      setFileError("Пожалуйста, прикрепите PDF файл.");
-      return;
+  if (!selectedFile) {
+    setFileError("Пожалуйста, прикрепите PDF файл.");
+    return;
+  }
+  if (!resumeText.trim()) {
+    setFileError("Пожалуйста, введите текст запроса.");
+    return;
+  }
+
+  setIsLoading(true);
+  setShowGif(true);
+  setFileError("");
+  setIsResultVisible(false);
+
+  try {
+    const formData = new FormData();
+    formData.append("file", selectedFile);
+    formData.append("query", resumeText);
+
+    const response = await fetch("/analyze-resume", {
+      method: "POST",
+      body: formData,
+    });
+
+    if (!response.ok) {
+      throw new Error(`Ошибка сервера: ${response.statusText}`);
     }
 
-    setIsLoading(true);
-    setShowGif(true);
-
-    // таймер для скрытия GIF через 5 секунд
-    setTimeout(() => {
-      setShowGif(false); 
-      setIsLoading(false);
-      setIsResultVisible(true);
-      // Здесь имитация результата
-      setResultText(
-        "Пример результата анализа резюме: \n\n- Ключевые навыки: Python, ML\n- Опыт работы: 3 года\n- Рекомендации: добавить проекты"
-      );
-    }, 5000);
+    const data = await response.json();
+    setResultText(data.result || "Результат пустой");
+    setIsResultVisible(true);
+  } catch (error) {
+    setFileError(`Ошибка при запросе: ${error.message}`);
+  } finally {
+    setIsLoading(false);
+    setShowGif(false);
+  }
   };
 
   // Функция для скачивания результата в txt-файл
