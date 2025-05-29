@@ -91,12 +91,28 @@ export default function AuthModal({ onClose }) {
   }
   };
 
-  const handleVerificationSubmit = () => {
-    if (verificationCode === "123456") {
+const handleVerificationSubmit = async () => {
+  try {
+    const formData = new FormData();
+    formData.append("code", verificationCode);
+
+    const res = await fetch("/account/register/verify", {
+      method: "POST",
+      body: formData,
+      credentials: "include"
+    });
+
+    const data = await res.json();
+    if (res.ok) {
       alert("Почта успешно подтверждена!");
-      onClose();
+      localStorage.setItem("auth_token", data.token);
+      onClose(); 
     } else {
-      alert("Неверный код. Попробуйте снова.");
+      alert(data.message || "Неверный код. Попробуйте снова.");
+    }
+  } catch (err) {
+    console.error(err);
+    alert("Ошибка соединения с сервером");
     }
   };
 
@@ -341,33 +357,43 @@ export default function AuthModal({ onClose }) {
                   style={getInputStyle("email")}
                 />
                 <input
-                type="password"
-                name="password"
-                placeholder="Пароль"
-                value={formData.password}
-                onChange={handleInputChange}
-                style={getInputStyle("password")}
+                  type="password"
+                  name="password"
+                  placeholder="Пароль"
+                  value={formData.password}
+                  onChange={handleInputChange}
+                  style={getInputStyle("password")}
+                />
+                <input
+                  type="text"
+                  name="login"
+                  placeholder="Логин"
+                  value={formData.login}
+                  onChange={handleInputChange}
+                  style={getInputStyle("login")}
                 />
               </>
             )}
             {!isRegister && (
-              <input
-                type="email"
-                name="email"
-                placeholder="Почта"
-                value={formData.email}
-                onChange={handleInputChange}
-                style={getInputStyle("email")}
-              />
+              <>
+                <input
+                  type="email"
+                  name="email"
+                  placeholder="Почта"
+                  value={formData.email}
+                  onChange={handleInputChange}
+                  style={getInputStyle("email")}
+                />
+                <input
+                  type="password"
+                  name="password"
+                  placeholder="Пароль"
+                  value={formData.password}
+                  onChange={handleInputChange}
+                  style={getInputStyle("password")}
+                />
+              </>
             )}
-            <input
-              type="password"
-              name="password"
-              placeholder="Пароль"
-              value={formData.password}
-              onChange={handleInputChange}
-              style={getInputStyle("password")}
-            />
             {passwordError && <p className="error-message">{passwordError}</p>}
             <div className="button-container" style={{ flexWrap: "nowrap", justifyContent: "center" }}>
               <button

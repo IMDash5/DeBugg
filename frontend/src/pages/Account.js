@@ -26,9 +26,27 @@ export default function Account() {
     alert("Данные профиля обновлены!");
   };
 
-  const handleLogout = () => {
-    localStorage.clear();
-    navigate("/login");
+  const handleLogout = async () => {
+  try {
+    const response = await fetch("/account/logout", {
+      method: "GET",
+      headers: {
+        "Authorization": `Bearer ${token}`,
+        "Content-Type": "application/json"
+      }
+    });
+
+    if (response.ok) {
+      localStorage.clear();
+      navigate("/login");
+    } else {
+      const errorData = await response.json();
+      alert(`Ошибка: ${errorData.message || "Не удалось выйти"}`);
+    }
+  } catch (error) {
+    console.error("Ошибка при логауте:", error);
+    alert("Произошла ошибка при выходе. Попробуйте ещё раз.");
+    }
   };
 
   const handleAvatarClick = () => {
