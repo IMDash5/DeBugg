@@ -7,6 +7,7 @@ export default function Account() {
   const [name, setname] = useState(localStorage.getItem("name") || "");
   const [surname, setsurname] = useState(localStorage.getItem("surname") || "");
   const [email, setEmail] = useState(localStorage.getItem("email") || "Не указано");
+  const [login, setLogin] = useState(localStorage.getItem("login") || "Не указано");
   const [phone] = useState(localStorage.getItem("phone") || "Не указано");
   const [isEditing, setIsEditing] = useState(false);
   const [avatar, setAvatar] = useState(localStorage.getItem("avatar") || "/images/account_logo.png");

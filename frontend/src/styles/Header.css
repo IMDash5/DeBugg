@@ -4,7 +4,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 15px 20px;
+  padding: 8px;
   background: #1f2937;
   color: white;
   position: relative; /* для корректного позиционирования меню */
@@ -53,28 +53,26 @@
 
 .dropdown-menu {
   position: absolute;
-  top: 60px;
+  top: 100%;
   right: 0;
-  background: #1f2937;
-  border: 1px solid #374151;
+  background: var(--dropdown-bg);
+  border: 1px solid var(--dropdown-border);
   border-radius: 8px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  overflow: hidden;
-  min-width: 180px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  min-width: 200px;
   display: flex;
   flex-direction: column;
   opacity: 0;
-  transform: scale(0.9);
-  transition: opacity 0.3s ease, visibility  0.3s ease;
-  pointer-events: none;
-  z-index: 1000;
+  visibility: hidden;
+  transform: translateY(-10px);
+  transition: all 0.3s ease;
+  z-index: 1100;
 }
 
 .dropdown-menu.open {
   opacity: 1;
-  transform: scale(1);
-  pointer-events: auto;
   visibility: visible;
+  transform: translateY(0);
 }
 
 .menu-item {
@@ -90,14 +88,12 @@
 }
 
 .menu-item:hover {
-  background: #374151;
+  background: var(--menu-hover);
 }
 
 .theme-toggle-container {
-  margin-right: 20px;
-  margin-left: 0;
-  display: flex;
-  align-items: center;
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--dropdown-border);
 }
 
 .theme-switch {
