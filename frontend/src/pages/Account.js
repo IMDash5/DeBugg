@@ -7,7 +7,7 @@ export default function Account() {
   const [firstName, setFirstName] = useState(localStorage.getItem("firstName") || "");
   const [lastName, setLastName] = useState(localStorage.getItem("lastName") || "");
   const [email] = useState(localStorage.getItem("email") || "Не указано");
-  const [phone] = useState(localStorage.getItem("phone") || "Не указано");
+  const [login, setLogin] = useState(localStorage.getItem("login") || "Не указано");
   const [isEditing, setIsEditing] = useState(false);
   const [avatar, setAvatar] = useState(localStorage.getItem("avatar") || "/images/account_logo.png");
   const [isAvatarModalOpen, setIsAvatarModalOpen] = useState(false);
@@ -22,6 +22,7 @@ export default function Account() {
   const handleSave = () => {
     localStorage.setItem("firstName", firstName);
     localStorage.setItem("lastName", lastName);
+    localStorage.setItem("login", login);
     setIsEditing(false);
     alert("Данные профиля обновлены!");
   };
@@ -115,8 +116,8 @@ export default function Account() {
             <p>{email}</p>
           </div>
           <div>
-            <p className="account-label">Номер телефона</p>
-            <p>{phone}</p>
+            <p className="account-label">Логин</p>
+            <p>{login}</p>
           </div>
         </div>
         {!isEditing ? (
@@ -145,6 +146,13 @@ export default function Account() {
               placeholder="Фамилия"
               value={lastName}
               onChange={(e) => setLastName(e.target.value)}
+              className="account-input"
+            />
+            <input
+              type="text"
+              placeholder="Логин"
+              value={login}
+              onChange={(e) => setLogin(e.target.value)}
               className="account-input"
             />
             <button className="save-button" onClick={handleSave}>
@@ -179,7 +187,10 @@ export default function Account() {
               display: "flex",
               flexDirection: "column",
               alignItems: "center",
-              position: "relative"
+              position: "relative",
+              width: "90vw",
+              maxWidth: 340,
+              minWidth: 0,
             }}
             onClick={e => e.stopPropagation()}
           >
@@ -203,8 +214,8 @@ export default function Account() {
               src={avatar}
               alt="avatar-large"
               style={{
-                width: 180,
-                height: 180,
+                width: 120,
+                height: 120,
                 borderRadius: "50%",
                 marginBottom: 24,
                 objectFit: "cover",
@@ -215,7 +226,7 @@ export default function Account() {
               style={{
                 background: "#2563eb",
                 color: "#fff",
-                padding: "12px 24px",
+                padding: "10px 18px",
                 borderRadius: "8px",
                 cursor: "pointer",
                 fontSize: "1rem"

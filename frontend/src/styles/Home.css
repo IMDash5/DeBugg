@@ -1,12 +1,12 @@
 .container {
-  min-height: 100vh;
-  /* общий фон */
-  /* background-color: #111827; */ 
   color: white;
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 16px;
+  justify-content: center; 
+  width: 100vw; 
+  box-sizing: border-box; 
+  margin: 0 auto;
 }
 
 /* Часть, где отображается поле ввода */
@@ -16,11 +16,15 @@
   background: #1f2937;
   padding: 24px;
   border-radius: 12px;
-  margin-top: 16px;
+  margin-top: 0; 
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   border: 1px solid #374151;
+  box-sizing: border-box; 
+  margin-left: auto; 
+  margin-right: auto; 
 }
 
 .main.shifted {
@@ -142,4 +146,95 @@
   color: #f87171;
   font-size: 0.9rem;
   margin-top: 8px;
+}
+
+@media (max-width: 700px) {
+  .container {
+    padding: 4px !important;
+    justify-content: center !important; 
+  }
+  .main {
+    max-width: 98vw !important;
+    padding: 10px !important;
+    border-radius: 8px !important;
+    margin-top: 100px !important; /* убираем отступ сверху и на мобильных */
+    justify-content: center !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+  .subtitle {
+    font-size: 1.1rem !important;
+    margin-bottom: 8px !important;
+  }
+  .resume-input {
+    font-size: 1rem !important;
+    height: 100px !important;
+    padding: 8px !important;
+  }
+  .button-container {
+    flex-direction: column !important;
+    gap: 8px !important;
+    margin-top: 8px !important;
+  }
+  .file-upload-button, .submit-button {
+    width: 100% !important;
+    min-width: 0 !important;
+    height: 40px !important;
+    font-size: 1rem !important;
+    padding: 8px !important;
+  }
+  .result-panel {
+    display: none !important;
+  }
+}
+
+[data-theme="light"] .main {
+  background: #fff;
+  border: 1px solid #d1d5db;
+}
+
+[data-theme="light"] .subtitle {
+  color: #222;
+}
+
+[data-theme="light"] .resume-input {
+  background: #f3f4f6;
+  color: #222;
+  border: 1px solid #d1d5db;
+}
+
+[data-theme="light"] .resume-input::placeholder {
+  color: #6b7280;
+}
+
+[data-theme="light"] .resume-input:focus {
+  border: 2px solid #fbbf24;
+}
+
+[data-theme="light"] .about-text {
+  color: #374151;
+}
+
+[data-theme="light"] .file-upload-button,
+[data-theme="light"] .submit-button {
+  background-color: #fbbf24;
+  color: #222;
+}
+
+[data-theme="light"] .file-upload-button:hover,
+[data-theme="light"] .submit-button:hover {
+  background-color: #fde68a;
+}
+
+[data-theme="light"] .file-upload-button.file-selected {
+  border: 2px solid #2563eb;
+}
+
+[data-theme="light"] .result-panel {
+  background: #f3f4f6;
+  color: #222;
+}
+
+[data-theme="light"] .error-message {
+  color: #dc2626;
 }
