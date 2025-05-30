@@ -60,7 +60,6 @@ npm run start
 ```
 2. Запустите бэкенд:
 ```sh
-cd backend
 poetry run python -m backend.server
 ```
 3. Откройте браузер и перейдите по адресу:
